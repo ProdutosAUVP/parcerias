@@ -15,7 +15,7 @@
   --shadow:0 24px 60px rgba(0,0,0,.10);
   --gutter:clamp(20px,5vw,84px);
   --maxw:1320px;
-  --sec-y:clamp(72px,10vw,150px);
+  --sec-y:clamp(54px,7vw,108px);
   --ease:cubic-bezier(.22,.68,.28,1);
 }
 
@@ -175,7 +175,7 @@ a{color:inherit}
   grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
   gap:clamp(24px,5vw,72px);
   align-items:end;
-  margin-bottom:clamp(40px,6vw,76px);
+  margin-bottom:clamp(32px,4.5vw,60px);
 }
 
 .kicker{
@@ -279,7 +279,13 @@ a{color:inherit}
 .ph-tools{display:none!important}
 /* recorte mais baixo, para centralizar quem está em cena */
 .ph-low{background-position:center 58%}
-.ph-top{background-position:center 22%}   /* mostra o alto do quadro: rostos inteiros */
+/* alinhada ao topo e sem transbordo de parallax: garante o rosto inteiro,
+   independentemente da proporção da foto */
+.statement .ph-top{
+  inset:0;
+  height:100%;
+  background-position:center top;
+}
 .ph-left{background-position:40% 50%}     /* o assunto está à esquerda do centro na foto */
 .ph-strip.ph-low{background-position:center 74%}
 
@@ -306,7 +312,7 @@ a{color:inherit}
 /* ============================ DECLARAÇÕES ============================ */
 .statement,.closing{
   position:relative;
-  padding:clamp(90px,14vw,190px) var(--gutter);
+  padding:clamp(72px,10vw,140px) var(--gutter);
   background:var(--dark);
   color:#fff;
   overflow:hidden;
@@ -337,6 +343,10 @@ a{color:inherit}
   border-left:3px solid rgba(255,255,255,.5);
 }
 
+.closing{padding-bottom:clamp(84px,12vw,170px)}
+.closing .statement-scrim{
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.34) 40%,rgba(0,0,0,.92) 100%);
+}
 .closing-inner{max-width:var(--maxw);margin:0 auto;position:relative}
 .closing-text{
   font-size:clamp(28px,4.8vw,66px);
@@ -615,46 +625,86 @@ a{color:inherit}
 }
 .timeline p{font-size:clamp(16px,1.25vw,19px);color:var(--ink-2)}
 
-/* ============================ PASSOS ============================ */
-.steps{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(10px,1.6vw,18px);
-}
-.steps li{
+/* ==================== PASSOS: linha do tempo vertical ==================== */
+.lead-lg{font-size:clamp(18px,1.55vw,23px);color:var(--ink)}
+
+.vsteps{
   position:relative;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#fff;
-  padding:clamp(22px,2.4vw,30px);
-  overflow:hidden;
-  transition:border-color .25s ease,transform .25s var(--ease),box-shadow .25s ease;
+  max-width:940px;
+  opacity:1!important;
+  transform:none!important;
+  --rail:clamp(46px,5vw,76px);
+  --dur:1.5s;
 }
-.steps li:hover{border-color:#c9c9c2;transform:translateY(-3px);box-shadow:var(--shadow)}
-/* traço que corre na borda de cima quando o passo entra na tela */
-.steps li::before{
+/* trilho e linha que desce */
+.vsteps::before,.vsteps::after{
   content:"";
-  position:absolute;left:0;right:0;top:0;height:3px;
+  position:absolute;
+  left:12px;top:.6em;bottom:.6em;
+  width:2px;
+}
+.vsteps::before{background:var(--line)}
+.vsteps::after{
   background:var(--ink);
-  transform:scaleX(0);transform-origin:left;
+  transform:scaleY(0);
+  transform-origin:top;
 }
-.steps li.is-in::before{
-  transform:none;
-  transition:transform .8s var(--ease);
-  transition-delay:calc(var(--d,0) * 90ms + 120ms);
+.vsteps.is-in::after{
+  transform:scaleY(1);
+  transition:transform var(--dur) cubic-bezier(.35,.05,.2,1);
 }
-.steps b{
+
+.vsteps li{
+  position:relative;
+  padding-left:var(--rail);
+  padding-bottom:clamp(30px,4vw,54px);
+}
+.vsteps li:last-child{padding-bottom:0}
+
+/* o ponto acende quando a linha passa por ele */
+.vsteps li::before{
+  content:"";
+  position:absolute;
+  left:5px;top:.42em;
+  width:16px;height:16px;
+  border-radius:50%;
+  background:var(--ink);
+  box-shadow:0 0 0 6px var(--paper);
+  transform:scale(0);
+}
+.vsteps.is-in li::before{
+  transform:scale(1);
+  transition:transform .45s var(--ease);
+  transition-delay:calc(var(--dur) * (var(--i,0) + .55) / 4);
+}
+
+.vsteps li>*{opacity:0;transform:translateY(8px)}
+.vsteps.is-in li>*{
+  opacity:1;transform:none;
+  transition:opacity .5s ease,transform .6s var(--ease);
+  transition-delay:calc(var(--dur) * (var(--i,0) + .55) / 4 + .08s);
+}
+
+.vsteps b{
   display:block;
-  font-size:clamp(19px,1.7vw,23px);
-  font-weight:700;letter-spacing:-.01em;
+  font-size:clamp(21px,2.1vw,28px);
+  font-weight:700;letter-spacing:-.015em;
   margin-bottom:8px;
 }
-.steps li>span:last-child{color:var(--ink-2);font-size:clamp(16px,1.2vw,18px)}
+.vsteps li>span{
+  display:block;
+  font-size:clamp(17px,1.3vw,20px);
+  color:var(--ink-2);
+  max-width:52ch;
+}
 
 /* ============================ RODAPÉ ============================ */
+/* o rodapé continua a dobra final: mesmo preto da foto, sem linha nem
+   troca de fundo para não criar um degrau visual */
 .foot{
-  border-top:1px solid var(--line);
-  padding:44px var(--gutter);
+  background:var(--dark);
+  color:rgba(255,255,255,.65);
+  padding:38px var(--gutter) 46px;
   position:relative;z-index:1;
 }
 .foot-in{
@@ -662,8 +712,8 @@ a{color:inherit}
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;
   color:var(--muted);font-size:15px;
 }
-.foot-logo{width:92px;height:auto;fill:var(--ink);flex:none}
-.foot-in a{margin-left:auto;color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.foot-logo{width:92px;height:auto;fill:#fff;flex:none}
+.foot-in a{margin-left:auto;color:#fff;text-decoration:underline;text-underline-offset:4px}
 
 /* ============================ REVEAL ============================ */
 .reveal{opacity:0;transform:translateY(22px)}
@@ -723,18 +773,26 @@ a{color:inherit}
   .ph-tall{aspect-ratio:4/3}
   .ph-sm{max-width:none}
   .ph-strip{aspect-ratio:16/9}
-  .stats,.cards.three,.cards.two,.timeline,.steps{grid-template-columns:1fr}
+  .stats,.cards.three,.cards.two,.timeline{grid-template-columns:1fr}
   .badge-30{justify-self:start;margin-top:20px}
-  .steps button>span:last-child{padding-left:0;flex-basis:auto}
   .brand-tag{display:none}
   .brand-logo{width:88px}
+  /* a foto do fechamento é muito larga: no celular ela cabe inteira em vez
+     de ser recortada, e o fundo preto da dobra completa o quadro */
+  .closing .ph-bg{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center bottom;
+  }
   .hero{min-height:92svh}
 }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal,.anim-words,.anim-words .w,.stats-seq .stat-value,.stats-seq .stat-label,.ticks-seq li{opacity:1;transform:none;filter:none}
-  .timeline li::after,.timeline li::before,.stat::before,.steps li::before{transform:none}
+  .timeline li::after,.timeline li::before,.stat::before,
+  .vsteps::after,.vsteps li::before{transform:none}
+  .vsteps li>*{opacity:1;transform:none}
   .hero-cue span{animation:none}
   .eco-panel{animation:none}
   *{transition-duration:.01ms!important}
@@ -747,7 +805,9 @@ a{color:inherit}
   .reveal,.anim-words,.anim-words .w,.stats-seq .stat-value,.stats-seq .stat-label,.ticks-seq li{
     opacity:1!important;transform:none!important;filter:none!important
   }
-  .timeline li::after,.timeline li::before,.stat::before,.steps li::before{transform:none!important}
+  .timeline li::after,.timeline li::before,.stat::before,
+  .vsteps::after,.vsteps li::before{transform:none!important}
+  .vsteps li>*{opacity:1!important;transform:none!important}
   .hero,.statement,.closing{
     min-height:auto;padding:40px 0;background:#fff;color:#000;
   }

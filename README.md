@@ -55,6 +55,9 @@ direita e cada marco acende na sequência.
 **Responsabilidades** — a lista da empresa parceira corre em duas colunas, para os dois lados
 ficarem com blocos de tamanho parecido.
 
+**Próximos passos** — as quatro etapas em linha do tempo vertical: a linha desce e cada ponto
+acende quando ela passa, com o texto entrando logo atrás.
+
 **Animação dos textos** — títulos e frases de destaque entram palavra a palavra, e os blocos
 sobem conforme a rolagem. Capa e declarações têm parallax leve nas fotos de fundo. Tudo
 respeita `prefers-reduced-motion`; na impressão, o texto volta inteiro para o PDF sair
@@ -115,8 +118,11 @@ Já definidas:
 | Por que essa parceria faz sentido | `assets/img/web/trofeu-summit.webp` |
 | A marca ganha visibilidade qualificada | livecoins.com.br (URL) |
 | Projeto-piloto | `assets/img/web/olhos-summit.webp` |
+| O próximo passo é desenhar as condições | `assets/img/web/palestras.webp` |
 
-As demais seguem como placeholder.
+Responsabilidades e Próximos passos não têm foto. A dobra final e o rodapé compartilham o
+mesmo preto, para a foto emendar no rodapé sem degrau; no celular a foto aparece inteira em
+vez de recortada, já que ela é larga demais para uma tela estreita.
 
 ### Peso das imagens
 

@@ -71,8 +71,8 @@
   $$('.reveal').forEach(function (el) {
     if (el.dataset.delay) el.style.setProperty('--d', el.dataset.delay);
   });
-  /* itens de lista entram um a um dentro do próprio cartão */
-  $$('.ticks-seq').forEach(function (list) {
+  /* itens que entram um a um: cada filho recebe a própria posição na fila */
+  $$('.ticks-seq, .vsteps').forEach(function (list) {
     $$('li', list).forEach(function (li, i) { li.style.setProperty('--i', i); });
   });
 
