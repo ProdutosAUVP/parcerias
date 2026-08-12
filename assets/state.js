@@ -240,8 +240,11 @@
     picker.click();
   }
 
-  function initImages(root) {
+  /* interactive:false — as fotos ficam só como conteúdo, sem envio
+     de arquivo nem área clicável (é o caso do site). */
+  function initImages(root, opts) {
     var scope = root || document;
+    var interactive = !(opts && opts.interactive === false);
 
     Array.prototype.forEach.call(scope.querySelectorAll('.ph'), function (el) {
       if (el.dataset.wired) return;
@@ -249,6 +252,8 @@
       phEls.push(el);
 
       var key = el.dataset.img;
+
+      if (!interactive) { applyImage(el, currentSrc(el)); return; }
 
       var tools = document.createElement('div');
       tools.className = 'ph-tools';
@@ -345,9 +350,9 @@
     toast('Proposta restaurada ao original.');
   }
 
-  function init(root) {
+  function init(root, opts) {
     initFields(root);
-    initImages(root);
+    initImages(root, opts && opts.images);
   }
 
   global.AUVP = {

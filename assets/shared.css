@@ -52,7 +52,9 @@ body:not(.presenting) .statement .field:focus{background:rgba(255,255,255,.22)}
   border:2px dashed #bdbdb7;
   transition:opacity .2s ease,background-color .2s ease,border-color .2s ease;
 }
-.ph.on-dark,.ph.ph-dark,.ph-bg,.slide.dark .ph{background:#141414}
+/* background-color, não o atalho background: o atalho zeraria o
+   background-size:cover e o background-position definidos acima */
+.ph.on-dark,.ph.ph-dark,.ph-bg,.slide.dark .ph{background-color:#141414}
 .ph.on-dark::after,.ph.ph-dark::after,.ph-bg::after,.slide.dark .ph::after{
   color:#8f8f8f;
   border-color:#3a3a3a;

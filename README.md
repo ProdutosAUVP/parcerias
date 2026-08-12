@@ -41,7 +41,10 @@ leitura, menu no celular e rolagem suave. Cada seção tem endereço próprio (`
 `#proposta`, …), útil para mandar alguém direto ao ponto.
 
 **Ecossistema** — as cinco verticais (Escola, Capital, Analítica, Corporate, Agro) num
-seletor navegável por clique ou pelas setas do teclado, em vez de cinco blocos soltos.
+seletor navegável por clique ou pelas setas do teclado, cada uma com a sua foto.
+
+**Nossa proposta de parceria** — os três lados viram um acordeão: abre e fecha na linha
+inteira ou no botão, e a lista desliza junto.
 
 **Números** — a dobra revela um dado de cada vez: a régua corre, o número conta a partir do
 zero e só então entra a explicação, para cada indicador ter o seu momento.
@@ -70,22 +73,21 @@ campo está vazio, ele mostra o texto original entre colchetes, como no PDF.
 
 Tudo fica salvo no `localStorage`. Para levar o preenchimento adiante:
 
-- **Copiar link preenchido** — gera uma URL com os campos (`?empresa=...&produto=...`);
-  quem abrir já vê a proposta preenchida.
-- **Salvar em PDF** — imprime o site inteiro, sem a interface, com todas as verticais
-  abertas e sem as áreas de foto ainda vazias.
+- **Link pré-preenchido** — a página aceita os campos pela URL
+  (`index.html?empresa=Marca&produto=linha%20X`); quem abrir já vê a proposta preenchida.
+- **Salvar em PDF** — imprime o site inteiro, sem a interface, com todas as verticais e
+  todos os itens da proposta abertos, e sem as áreas de foto ainda vazias.
 - **Exportar / importar `.json`** — disponível na apresentação (`apresentacao.html`), que
   mantém o painel completo de campos e imagens.
 
 ## Trocando as imagens
 
-Cada área tracejada é um placeholder identificado (`Foto — palestra AUVP`, `Imagem — produto
-/ conceito`, …). Duas maneiras de colocar a imagem definitiva:
+No site as fotos são apenas conteúdo — não são áreas editáveis. Só os trechos entre colchetes
+recebem clique. Para enviar imagem pelo navegador, use a apresentação (`apresentacao.html`),
+que mantém o painel; no site, as imagens vêm do repositório.
 
-**Rápida, só no seu navegador:** clique numa área ainda vazia (ou arraste o arquivo em cima
-dela). Imagens grandes são redimensionadas automaticamente para caber no armazenamento local.
-
-**Definitiva, versionada no repositório:** coloque o arquivo em `assets/img/` e adicione o
+Cada área ainda sem foto aparece como um placeholder identificado (`Foto — palestra AUVP`,
+`Foto — dominós`, …). Para definir a imagem, coloque o arquivo em `assets/img/` e adicione o
 atributo `data-src` ao placeholder correspondente:
 
 ```html
@@ -93,15 +95,24 @@ atributo `data-src` ao placeholder correspondente:
      data-src="assets/img/palestra.jpg"></div>
 ```
 
-Assim a imagem vale para todo mundo que abrir a página. Um upload feito pelo navegador
-continua tendo prioridade sobre o `data-src`; “Remover” volta para a imagem do repositório.
+O `data-src` também aceita URL externa. Todas as fotos são exibidas em preto e branco
+(`filter: grayscale(1)`), como no material original, e se uma URL não carregar o placeholder
+volta a aparecer no lugar do bloco vazio.
 
-Todas as fotos são exibidas em preto e branco (`filter: grayscale(1)`), como no material
-original. Se uma URL não carregar, o placeholder volta a aparecer no lugar do bloco vazio.
+Já definidas:
 
-Já definidas: “Somos a maior escola” usa `assets/img/palestra-01.webp`; AUVP Agro usa
-`assets/img/agro.jpeg`; AUVP Escola e AUVP Capital vêm do CDN da AUVP
-(`cdn.asupernova.com.br`), referenciadas por URL. As demais seguem como placeholder.
+| Onde | Imagem |
+| --- | --- |
+| Capa | `assets/img/galera summit.webp` |
+| Somos a maior escola de investimentos do Brasil | `assets/img/palestra-01.webp` |
+| Por que essa parceria faz sentido | `assets/img/trofeu summit.webp` |
+| A marca ganha visibilidade qualificada | livecoins.com.br (URL) |
+| AUVP Escola / AUVP Capital | cdn.asupernova.com.br (URL) |
+| AUVP Agro | `assets/img/agro.jpeg` |
+
+As demais seguem como placeholder. O logo horizontal (`assets/AUVP - HORIZONTAL BRANCO
+(1).svg`) está embutido como símbolo SVG no topo e no rodapé, com `fill: currentColor`, então
+ele acompanha o fundo: branco sobre as dobras escuras, preto sobre o papel.
 
 Identificadores no site: `s1-bg`, `s2-foto`, `s3-bg`, `s7-foto`, `s8-bg`, `s10-faixa`,
 `s11-foto`, `s12-bg`, `s13-foto` e `eco-escola`, `eco-capital`, `eco-analitica`,

@@ -23,7 +23,7 @@
     if (touched) AUVP.toast('Proposta carregada pelo link.');
   })();
 
-  AUVP.init(document);
+  AUVP.init(document, { images: { interactive: false } });   // fotos são só conteúdo aqui
 
   /* ---------------------------------- animação de texto por palavra */
   var WORDY = '.hero-title, .statement-text, .closing-text, .gains li, .h2';
@@ -219,33 +219,29 @@
     });
   });
 
-  /* ------------------------------------------- compartilhar / PDF */
-  function shareLink() {
-    var q = new URLSearchParams();
-    FIELD_KEYS.forEach(function (k) { if (AUVP.get(k)) q.set(k, AUVP.get(k)); });
-    var url = location.origin + location.pathname + (q.toString() ? '?' + q : '');
+  /* --------------------------------------- acordeão da proposta */
+  $$('.acc-item').forEach(function (item) {
+    var head = $('.acc-head', item);
+    var toggle = $('.acc-toggle', item);
 
-    function fallback() {
-      var t = document.createElement('textarea');
-      t.value = url;
-      t.setAttribute('readonly', '');
-      t.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(t);
-      t.select();
-      try { document.execCommand('copy'); AUVP.toast('Link copiado.'); }
-      catch (e) { AUVP.toast('Copie o link: ' + url); }
-      document.body.removeChild(t);
+    function set(open) {
+      item.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
-    if (navigator.clipboard && location.protocol !== 'file:') {
-      navigator.clipboard.writeText(url).then(function () { AUVP.toast('Link copiado.'); }, fallback);
-    } else {
-      fallback();
-    }
-  }
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      set(!item.classList.contains('is-open'));
+    });
 
-  $('#btnShare').addEventListener('click', shareLink);
+    /* a linha inteira abre e fecha, menos o trecho editável do título */
+    head.addEventListener('click', function (e) {
+      if (e.target.closest('.field, .acc-toggle')) return;
+      set(!item.classList.contains('is-open'));
+    });
+  });
 
+  /* ------------------------------------------------------- PDF */
   $('#btnPrint').addEventListener('click', function () {
     $$('.reveal').forEach(function (el) { el.classList.add('is-in'); });
     wordEls.forEach(unsplitWords);
