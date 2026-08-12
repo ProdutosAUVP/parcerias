@@ -52,11 +52,13 @@ zero e só então entra a explicação, para cada indicador ter o seu momento.
 **Projeto-piloto** — os quatro momentos em linha do tempo: a régua corre da esquerda para a
 direita e cada marco acende na sequência.
 
-**Responsabilidades** — a lista da empresa parceira corre em duas colunas, para os dois lados
-ficarem com blocos de tamanho parecido.
+**Responsabilidades** — cada cartão traz a sua lista em linha do tempo vertical: a linha desce
+e cada ponto acende quando ela passa. Os dois cartões esticam para a mesma altura e a lista se
+distribui nela, então as duas linhas ficam do mesmo tamanho e a diferença de quantidade entre
+os lados não salta aos olhos.
 
-**Próximos passos** — as quatro etapas em linha do tempo vertical: a linha desce e cada ponto
-acende quando ela passa, com o texto entrando logo atrás.
+**Próximos passos** — as quatro etapas em cartões lado a lado, cada um com um traço que corre
+na borda de cima quando entra na tela.
 
 **Animação dos textos** — títulos e frases de destaque entram palavra a palavra, e os blocos
 sobem conforme a rolagem. Capa e declarações têm parallax leve nas fotos de fundo. Tudo

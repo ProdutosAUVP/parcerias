@@ -343,9 +343,9 @@ a{color:inherit}
   border-left:3px solid rgba(255,255,255,.5);
 }
 
-.closing{padding-bottom:clamp(84px,12vw,170px)}
+.closing{padding-bottom:clamp(84px,12vw,170px);background:#000}
 .closing .statement-scrim{
-  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.34) 40%,rgba(0,0,0,.92) 100%);
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.34) 40%,rgba(0,0,0,.98) 100%);
 }
 .closing-inner{max-width:var(--maxw);margin:0 auto;position:relative}
 .closing-text{
@@ -625,8 +625,20 @@ a{color:inherit}
 }
 .timeline p{font-size:clamp(16px,1.25vw,19px);color:var(--ink-2)}
 
-/* ==================== PASSOS: linha do tempo vertical ==================== */
+/* ============== RESPONSABILIDADES: linha do tempo vertical ============== */
 .lead-lg{font-size:clamp(18px,1.55vw,23px);color:var(--ink)}
+
+/* os dois cartões esticam para a mesma altura e a lista se distribui nela:
+   as duas linhas ficam do mesmo tamanho, então a diferença de quantidade
+   entre os lados não salta aos olhos */
+.card-vlist{display:flex;flex-direction:column}
+.card-vlist .vsteps{
+  flex:1;
+  display:flex;flex-direction:column;justify-content:space-between;
+  gap:clamp(14px,1.6vw,22px);
+  margin-top:4px;
+}
+.card-vlist .vsteps li{padding-bottom:0}
 
 .vsteps{
   position:relative;
@@ -649,7 +661,7 @@ a{color:inherit}
   transform:scaleY(0);
   transform-origin:top;
 }
-.vsteps.is-in::after{
+:is(.vsteps.is-in, .is-in .vsteps)::after{
   transform:scaleY(1);
   transition:transform var(--dur) cubic-bezier(.35,.05,.2,1);
 }
@@ -672,14 +684,14 @@ a{color:inherit}
   box-shadow:0 0 0 6px var(--paper);
   transform:scale(0);
 }
-.vsteps.is-in li::before{
+:is(.vsteps.is-in, .is-in .vsteps) li::before{
   transform:scale(1);
   transition:transform .45s var(--ease);
   transition-delay:calc(var(--dur) * (var(--i,0) + .55) / 4);
 }
 
 .vsteps li>*{opacity:0;transform:translateY(8px)}
-.vsteps.is-in li>*{
+:is(.vsteps.is-in, .is-in .vsteps) li>*{
   opacity:1;transform:none;
   transition:opacity .5s ease,transform .6s var(--ease);
   transition-delay:calc(var(--dur) * (var(--i,0) + .55) / 4 + .08s);
@@ -698,11 +710,65 @@ a{color:inherit}
   max-width:52ch;
 }
 
+/* dentro do cartão tudo encolhe: trilho mais fino, ponto menor */
+.vsteps-sm{--rail:clamp(30px,2.6vw,40px);--dur:1.2s}
+.vsteps-sm::before,.vsteps-sm::after{left:6px;top:.5em;bottom:.5em}
+.vsteps-sm li::before{
+  left:0;top:.34em;
+  width:13px;height:13px;
+  box-shadow:0 0 0 5px #fff;
+}
+.vsteps-sm li>span{
+  font-size:clamp(16px,1.2vw,18px);
+  color:var(--ink-2);
+  max-width:36ch;
+}
+
+/* ==================== PRÓXIMOS PASSOS: cartões ==================== */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(12px,1.8vw,20px);
+}
+.steps li{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  padding:clamp(24px,2.6vw,34px);
+  overflow:hidden;
+  transition:border-color .25s ease,transform .25s var(--ease),box-shadow .25s ease;
+}
+.steps li:hover{border-color:#c9c9c2;transform:translateY(-3px);box-shadow:var(--shadow)}
+/* traço que corre na borda de cima quando o cartão entra na tela */
+.steps li::before{
+  content:"";
+  position:absolute;left:0;right:0;top:0;height:3px;
+  background:var(--ink);
+  transform:scaleX(0);transform-origin:left;
+}
+.steps li.is-in::before{
+  transform:none;
+  transition:transform .8s var(--ease);
+  transition-delay:calc(var(--d,0) * 90ms + 120ms);
+}
+.steps b{
+  display:block;
+  font-size:clamp(20px,1.9vw,26px);
+  font-weight:700;letter-spacing:-.015em;
+  margin-bottom:10px;
+}
+.steps li>span{
+  display:block;
+  font-size:clamp(16px,1.25vw,19px);
+  color:var(--ink-2);
+}
+
 /* ============================ RODAPÉ ============================ */
 /* o rodapé continua a dobra final: mesmo preto da foto, sem linha nem
    troca de fundo para não criar um degrau visual */
 .foot{
-  background:var(--dark);
+  background:#000;
   color:rgba(255,255,255,.65);
   padding:38px var(--gutter) 46px;
   position:relative;z-index:1;
@@ -773,7 +839,7 @@ a{color:inherit}
   .ph-tall{aspect-ratio:4/3}
   .ph-sm{max-width:none}
   .ph-strip{aspect-ratio:16/9}
-  .stats,.cards.three,.cards.two,.timeline{grid-template-columns:1fr}
+  .stats,.cards.three,.cards.two,.timeline,.steps{grid-template-columns:1fr}
   .badge-30{justify-self:start;margin-top:20px}
   .brand-tag{display:none}
   .brand-logo{width:88px}
@@ -790,7 +856,7 @@ a{color:inherit}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal,.anim-words,.anim-words .w,.stats-seq .stat-value,.stats-seq .stat-label,.ticks-seq li{opacity:1;transform:none;filter:none}
-  .timeline li::after,.timeline li::before,.stat::before,
+  .timeline li::after,.timeline li::before,.stat::before,.steps li::before,
   .vsteps::after,.vsteps li::before{transform:none}
   .vsteps li>*{opacity:1;transform:none}
   .hero-cue span{animation:none}
@@ -805,7 +871,7 @@ a{color:inherit}
   .reveal,.anim-words,.anim-words .w,.stats-seq .stat-value,.stats-seq .stat-label,.ticks-seq li{
     opacity:1!important;transform:none!important;filter:none!important
   }
-  .timeline li::after,.timeline li::before,.stat::before,
+  .timeline li::after,.timeline li::before,.stat::before,.steps li::before,
   .vsteps::after,.vsteps li::before{transform:none!important}
   .vsteps li>*{opacity:1!important;transform:none!important}
   .hero,.statement,.closing{
