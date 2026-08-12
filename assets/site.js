@@ -1,7 +1,7 @@
 /* ============================================================
    AUVP | Parcerias Estratégicas — comportamento do site
-   Revelação por rolagem, navegação, seletor do ecossistema,
-   contadores, marcações e painel de preenchimento.
+   Revelação por rolagem, animação de textos e da linha do tempo,
+   navegação, seletor do ecossistema e contadores.
    ============================================================ */
 (function () {
   'use strict';
@@ -10,10 +10,9 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ------------------------------------------ estado compartilhado */
   var FIELD_KEYS = ['empresa', 'diferencial', 'produto', 'membros'];
 
-  // pré-preenchimento por link: ?empresa=Marca&produto=Linha
+  /* pré-preenchimento por link: ?empresa=Marca&produto=Linha */
   (function fromUrl() {
     var q = new URLSearchParams(location.search);
     var touched = false;
@@ -26,10 +25,62 @@
 
   AUVP.init(document);
 
+  /* ---------------------------------- animação de texto por palavra */
+  var WORDY = '.hero-title, .statement-text, .closing-text, .gains li, .h2';
+
+  var wordEls = [];
+
+  function splitWords(el) {
+    if (el.dataset.split || $('.field', el)) return;   // não fatiar campos editáveis
+    el.dataset.split = '1';
+    if (!el.dataset.text) el.dataset.text = el.textContent;
+    if (wordEls.indexOf(el) < 0) wordEls.push(el);
+    var parts = el.textContent.split(/(\s+)/);
+    el.textContent = '';
+    var i = 0;
+    parts.forEach(function (part) {
+      if (!part) return;
+      if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(part)); return; }
+      var w = document.createElement('span');
+      w.className = 'w';
+      w.textContent = part;
+      w.style.setProperty('--i', i++);
+      el.appendChild(w);
+    });
+    el.classList.add('anim-words');
+  }
+
+  if (!reduced) $$(WORDY).forEach(splitWords);
+
+  /* Na impressão o texto volta inteiro: o navegador exporta cada span como
+     um bloco próprio e o PDF sairia sem os espaços entre as palavras. */
+  function unsplitWords(el) {
+    if (!el.dataset.split) return;
+    el.textContent = el.dataset.text;
+    delete el.dataset.split;
+    el.classList.remove('anim-words');
+  }
+  function resplitWords() {
+    if (reduced) return;
+    wordEls.forEach(function (el) { splitWords(el); el.classList.add('is-in'); });
+  }
+  window.addEventListener('beforeprint', function () { wordEls.forEach(unsplitWords); });
+  window.addEventListener('afterprint', resplitWords);
+
   /* ------------------------------------------------- revelação */
   $$('.reveal').forEach(function (el) {
     if (el.dataset.delay) el.style.setProperty('--d', el.dataset.delay);
   });
+  /* itens de lista entram um a um dentro do próprio cartão */
+  $$('.ticks-seq').forEach(function (list) {
+    $$('li', list).forEach(function (li, i) { li.style.setProperty('--i', i); });
+  });
+
+  function reveal(el) {
+    el.classList.add('is-in');
+    var counter = el.matches('[data-count]') ? el : $('[data-count]', el);
+    if (counter) countUp(counter, el.dataset.delay);
+  }
 
   if (reduced || !('IntersectionObserver' in window)) {
     $$('.reveal').forEach(function (el) { el.classList.add('is-in'); });
@@ -38,32 +89,35 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        e.target.classList.add('is-in');
+        reveal(e.target);
         io.unobserve(e.target);
-        var counter = e.target.matches('[data-count]') ? e.target : $('[data-count]', e.target);
-        if (counter) countUp(counter);
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
     $$('.reveal').forEach(function (el) { io.observe(el); });
   }
 
-  /* contagem animada de “+19 mil” */
-  function countUp(el) {
+  /* contagem animada — começa junto com a entrada do bloco */
+  function countUp(el, delayStep) {
     if (el.dataset.counted) return;
     var m = /(-?\d[\d.]*)/.exec(el.textContent);
     if (!m) { el.dataset.counted = '1'; return; }
     el.dataset.counted = '1';
+
     var target = parseInt(m[1].replace(/\./g, ''), 10);
     var before = el.textContent.slice(0, m.index);
     var after = el.textContent.slice(m.index + m[1].length);
-    var t0 = performance.now();
-    var dur = 1100;
-    (function tick(now) {
-      var p = Math.min(1, (now - t0) / dur);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = before + Math.round(target * eased).toLocaleString('pt-BR') + after;
-      if (p < 1) requestAnimationFrame(tick);
-    })(t0);
+    var wait = (parseFloat(delayStep) || 0) * 150 + 140;
+
+    setTimeout(function () {
+      var t0 = performance.now();
+      var dur = 1200;
+      (function tick(now) {
+        var p = Math.min(1, (now - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = before + Math.round(target * eased).toLocaleString('pt-BR') + after;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }, wait);
   }
 
   /* ------------------------------------------------ topo / nav */
@@ -88,10 +142,10 @@
     topbar.classList.toggle('is-stuck', y > 12);
 
     var probe = y + topbar.offsetHeight * 0.55;
-    var overDark = darkRects.some(function (r) { return probe > r.top && probe < r.bottom; });
-    topbar.classList.toggle('on-dark', overDark);
+    topbar.classList.toggle('on-dark', darkRects.some(function (r) {
+      return probe > r.top && probe < r.bottom;
+    }));
 
-    // seção ativa no menu
     var active = null;
     var line = y + window.innerHeight * 0.35;
     sections.forEach(function (s) { if (s.offsetTop <= line) active = s.id; });
@@ -108,8 +162,7 @@
     if (reduced) return;
     var vh = window.innerHeight;
     paraEls.forEach(function (el) {
-      var host = el.parentElement;
-      var r = host.getBoundingClientRect();
+      var r = el.parentElement.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) return;
       var progress = (r.top + r.height / 2 - vh / 2) / vh;
       var shift = progress * (parseFloat(el.dataset.parallax) || 0.15) * r.height;
@@ -166,80 +219,7 @@
     });
   });
 
-  /* -------------------------------------------- medidores de progresso */
-  function renderMeters() {
-    $$('[data-meter]').forEach(function (el) {
-      var s = AUVP.checkStats(el.dataset.meter);
-      el.textContent = s.done + '/' + s.total + (el.classList.contains('meter-lg') ? ' concluídos' : '');
-      el.classList.toggle('is-full', s.total > 0 && s.done === s.total);
-    });
-  }
-
-  /* ------------------------------------------------------ painel */
-  var panel = $('#panel');
-  var veil = $('#veil');
-  var btnPanel = $('#btnPanel');
-  var lastFocus = null;
-
-  function openPanel(open) {
-    var show = typeof open === 'boolean' ? open : panel.hidden;
-    if (show) lastFocus = document.activeElement;
-    panel.hidden = !show;
-    veil.hidden = !show;
-    btnPanel.setAttribute('aria-expanded', show ? 'true' : 'false');
-    if (show) {
-      var f = $('[data-input]', panel);
-      if (f) f.focus();
-    } else if (lastFocus) {
-      lastFocus.focus();
-    }
-  }
-
-  btnPanel.addEventListener('click', function () { openPanel(); });
-  veil.addEventListener('click', function () { openPanel(false); });
-  $$('[data-close-panel]').forEach(function (b) {
-    b.addEventListener('click', function () { openPanel(false); });
-  });
-  $$('[data-open-panel]').forEach(function (b) {
-    b.addEventListener('click', function () { openPanel(true); });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !panel.hidden) openPanel(false);
-  });
-
-  /* lista de imagens do painel */
-  var imglist = $('#imglist');
-  function renderImgList() {
-    imglist.innerHTML = '';
-    AUVP.imageSlots().forEach(function (slot) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'imgitem' + (slot.filled ? ' done' : '');
-      b.innerHTML = '<span class="dot"></span><span class="nm"></span>' +
-                    '<span class="st">' + (slot.filled ? 'ok' : 'pendente') + '</span>';
-      $('.nm', b).textContent = slot.label;
-      b.addEventListener('click', function () {
-        slot.el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
-        AUVP.pickImage(slot.key);
-      });
-      imglist.appendChild(b);
-    });
-  }
-
-  /* contador de campos preenchidos */
-  var fillCount = $('#fillCount');
-  function renderFill() {
-    fillCount.textContent = FIELD_KEYS.filter(function (k) { return AUVP.get(k); }).length;
-  }
-
-  AUVP.on(function (what) {
-    if (what === 'images' || what === 'all') renderImgList();
-    if (what === 'fields' || what === 'all') renderFill();
-    if (what === 'checks' || what === 'all') renderMeters();
-  });
-  renderImgList(); renderFill(); renderMeters();
-
-  /* ---------------------------------- compartilhar / exportar / imprimir */
+  /* ------------------------------------------- compartilhar / PDF */
   function shareLink() {
     var q = new URLSearchParams();
     FIELD_KEYS.forEach(function (k) { if (AUVP.get(k)) q.set(k, AUVP.get(k)); });
@@ -264,24 +244,11 @@
     }
   }
 
-  $$('#btnShare, #btnShare2').forEach(function (b) { b.addEventListener('click', shareLink); });
+  $('#btnShare').addEventListener('click', shareLink);
 
-  $('#btnExport').addEventListener('click', AUVP.exportData);
-
-  var jsonPicker = $('#jsonPicker');
-  $('#btnImport').addEventListener('click', function () { jsonPicker.value = ''; jsonPicker.click(); });
-  jsonPicker.addEventListener('change', function () {
-    if (jsonPicker.files[0]) AUVP.importData(jsonPicker.files[0]);
-  });
-
-  function print() {
-    openPanel(false);
+  $('#btnPrint').addEventListener('click', function () {
     $$('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+    wordEls.forEach(unsplitWords);
     setTimeout(function () { window.print(); }, 120);
-  }
-  $$('#btnPrint, #btnPrintTop').forEach(function (b) { b.addEventListener('click', print); });
-
-  $('#btnReset').addEventListener('click', function () {
-    if (confirm('Limpar todos os campos, imagens e marcações?')) AUVP.reset();
   });
 })();

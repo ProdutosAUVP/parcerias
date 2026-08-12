@@ -1,15 +1,14 @@
 /* ============================================================
    AUVP | Parcerias — estado compartilhado
-   Campos editáveis, imagens, marcações de progresso e
-   persistência local. Usado pelo site e pela apresentação.
+   Campos editáveis, imagens e persistência local.
+   Usado pelo site e pela apresentação.
    ============================================================ */
 (function (global) {
   'use strict';
 
   var LS = {
     fields: 'auvp.parcerias.fields.v1',
-    images: 'auvp.parcerias.images.v1',
-    checks: 'auvp.parcerias.checks.v1'
+    images: 'auvp.parcerias.images.v1'
   };
 
   function load(key) {
@@ -23,7 +22,6 @@
 
   var fields = load(LS.fields);
   var images = load(LS.images);
-  var checks = load(LS.checks);
 
   var listeners = [];
   function emit(what) { listeners.forEach(function (fn) { fn(what); }); }
@@ -54,10 +52,25 @@
     return d.contentEditable === 'plaintext-only';
   })();
 
+  /* o texto entre colchetes é conteúdo de verdade, não decoração:
+     assim um clique já seleciona tudo e o que for digitado o substitui */
+  function placeholder(el) {
+    var ph = el.dataset.ph || '';
+    return el.dataset.raw ? ph : '[' + ph + ']';
+  }
+
   function paint(el) {
     var v = fields[el.dataset.field];
     if (v) { el.textContent = v; el.classList.remove('is-empty'); }
-    else { el.textContent = el.dataset.ph || ''; el.classList.add('is-empty'); }
+    else { el.textContent = placeholder(el); el.classList.add('is-empty'); }
+  }
+
+  function selectAll(el) {
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
   }
 
   function repaint(key, except) {
@@ -92,14 +105,21 @@
       if (el.dataset.raw) el.classList.add('raw');
       paint(el);
 
-      el.addEventListener('focus', function () {
-        if (el.classList.contains('is-empty')) {
-          el.textContent = '';
-          el.classList.remove('is-empty');
-        }
+      /* um clique basta: em vez de deixar o navegador posicionar o cursor
+         no meio do placeholder, o texto inteiro já entra selecionado */
+      var selectPlaceholder = function () {
+        if (el.classList.contains('is-empty')) selectAll(el);
+      };
+      el.addEventListener('mousedown', function (e) {
+        if (!el.classList.contains('is-empty')) return;
+        e.preventDefault();
+        el.focus();
+        selectPlaceholder();
       });
+      el.addEventListener('focus', selectPlaceholder);
 
       el.addEventListener('input', function () {
+        el.classList.remove('is-empty');
         fields[el.dataset.field] = el.textContent.replace(/\s+/g, ' ').trim();
         persist(LS.fields, fields);
         repaint(el.dataset.field, el);
@@ -142,14 +162,28 @@
   function defaultSrc(el) { return el.dataset.src || null; }
   function currentSrc(el) { return images[el.dataset.img] || defaultSrc(el); }
 
+  /* se a URL não carregar (CDN fora do ar, caminho errado), o
+     placeholder volta a aparecer em vez de deixar um bloco vazio */
+  function verify(el, src) {
+    var probe = new Image();
+    probe.onerror = function () {
+      if (el.style.backgroundImage.indexOf(src) === -1) return;
+      el.style.backgroundImage = '';
+      el.classList.remove('has-image');
+    };
+    probe.src = src;
+  }
+
   function applyImage(el, src) {
     if (src) {
       el.style.backgroundImage = 'url("' + src + '")';
       el.classList.add('has-image');
+      if (/^https?:/i.test(src)) verify(el, src);
     } else {
       el.style.backgroundImage = '';
       el.classList.remove('has-image');
     }
+    el.classList.toggle('is-uploaded', !!images[el.dataset.img]);
   }
 
   function refreshImages() {
@@ -238,6 +272,7 @@
 
       el.addEventListener('click', function () {
         if (document.body.classList.contains('presenting')) return;
+        if (el.classList.contains('has-image')) return;   // já tem foto: use “Trocar”
         pick(key);
       });
 
@@ -263,43 +298,9 @@
     });
   }
 
-  /* ------------------------------------------------- marcações */
-  var checkEls = [];
-
-  function paintCheck(el) {
-    var on = !!checks[el.dataset.check];
-    el.classList.toggle('is-done', on);
-    el.setAttribute('aria-pressed', on ? 'true' : 'false');
-  }
-
-  function initChecks(root) {
-    var scope = root || document;
-    Array.prototype.forEach.call(scope.querySelectorAll('[data-check]'), function (el) {
-      if (el.dataset.wired) return;
-      el.dataset.wired = '1';
-      checkEls.push(el);
-      paintCheck(el);
-      el.addEventListener('click', function () {
-        checks[el.dataset.check] = !checks[el.dataset.check];
-        if (!checks[el.dataset.check]) delete checks[el.dataset.check];
-        persist(LS.checks, checks);
-        paintCheck(el);
-        emit('checks');
-      });
-    });
-  }
-
-  function checkStats(prefix) {
-    var els = checkEls.filter(function (el) {
-      return !prefix || el.dataset.check.indexOf(prefix) === 0;
-    });
-    var done = els.filter(function (el) { return !!checks[el.dataset.check]; });
-    return { total: els.length, done: done.length };
-  }
-
   /* --------------------------------------- exportar / importar */
   function exportData() {
-    var blob = new Blob([JSON.stringify({ fields: fields, images: images, checks: checks }, null, 2)],
+    var blob = new Blob([JSON.stringify({ fields: fields, images: images }, null, 2)],
                         { type: 'application/json' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -318,11 +319,9 @@
         var data = JSON.parse(fr.result);
         fields = data.fields || {};
         images = data.images || {};
-        checks = data.checks || {};
-        persist(LS.fields, fields); persist(LS.images, images); persist(LS.checks, checks);
+        persist(LS.fields, fields); persist(LS.images, images);
         fieldEls.forEach(paint);
         inputEls.forEach(function (i) { i.value = fields[i.dataset.input] || ''; });
-        checkEls.forEach(paintCheck);
         refreshImages();
         emit('all');
         toast('Dados importados.');
@@ -336,13 +335,11 @@
   }
 
   function reset() {
-    fields = {}; images = {}; checks = {};
+    fields = {}; images = {};
     localStorage.removeItem(LS.fields);
     localStorage.removeItem(LS.images);
-    localStorage.removeItem(LS.checks);
     fieldEls.forEach(paint);
     inputEls.forEach(function (i) { i.value = ''; });
-    checkEls.forEach(paintCheck);
     refreshImages();
     emit('all');
     toast('Proposta restaurada ao original.');
@@ -351,20 +348,17 @@
   function init(root) {
     initFields(root);
     initImages(root);
-    initChecks(root);
   }
 
   global.AUVP = {
     init: init,
     initFields: initFields,
     initImages: initImages,
-    initChecks: initChecks,
     get: function (k) { return fields[k] || ''; },
     set: setField,
     all: function () { return fields; },
     imageSlots: imageSlots,
     pickImage: pick,
-    checkStats: checkStats,
     exportData: exportData,
     importData: importData,
     reset: reset,

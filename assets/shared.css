@@ -9,49 +9,22 @@
 }
 
 /* --------------------------------------------- campos editáveis [] */
+/* Sem realce: o próprio texto entre colchetes mostra onde editar.
+   Os colchetes são conteúdo de verdade (state.js), então um clique
+   seleciona tudo e o que for digitado substitui o placeholder. */
 .field{
   display:inline;
   outline:none;
-  border-radius:4px;
-  white-space:pre-wrap;
-  transition:background-color .15s ease,box-shadow .15s ease;
-}
-.field.is-empty::before{content:"["}
-.field.is-empty::after{content:"]"}
-.field.raw.is-empty::before,.field.raw.is-empty::after{content:none}
-
-/* o realce acompanha a linha de base do texto: sublinhado em vez de
-   caixa de fundo, que ficaria alta demais nos títulos grandes */
-body:not(.presenting) .field{
-  cursor:text;
-  text-decoration:underline;
-  text-decoration-thickness:2px;
-  text-underline-offset:.2em;
-  text-decoration-skip-ink:none;
-  text-decoration-color:rgba(0,0,0,.34);
-}
-body:not(.presenting) .on-dark .field,
-body:not(.presenting) .slide.dark .field,
-body:not(.presenting) .hero .field,
-body:not(.presenting) .statement .field{text-decoration-color:rgba(255,255,255,.6)}
-body:not(.presenting) .field:hover{text-decoration-color:currentColor}
-body:not(.presenting) .field:focus{
-  text-decoration-color:currentColor;
-  background:rgba(255,232,102,.5);
   border-radius:3px;
+  white-space:pre-wrap;
+  transition:background-color .15s ease;
 }
-body:not(.presenting) .field.is-empty{opacity:.7}
-/* valores isolados podem virar caixa: aí o fundo abraça o texto */
-body:not(.presenting) .field.boxed{
-  display:inline-block;
-  line-height:1.06;
-  padding:.06em .16em;
-  margin:0 -.16em;
-  text-decoration:none;
-  background:rgba(0,0,0,.06);
-  box-shadow:inset 0 -2px 0 rgba(0,0,0,.32);
-  border-radius:4px;
-}
+body:not(.presenting) .field{cursor:text}
+body:not(.presenting) .field:focus{background:rgba(255,232,102,.5)}
+body:not(.presenting) .on-dark .field:focus,
+body:not(.presenting) .slide.dark .field:focus,
+body:not(.presenting) .hero .field:focus,
+body:not(.presenting) .statement .field:focus{background:rgba(255,255,255,.22)}
 
 /* ------------------------------------------- placeholders de imagem */
 .ph{

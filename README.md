@@ -1,14 +1,14 @@
 # AUVP | Parcerias Estratégicas
 
 Plataforma web da proposta **AUVP | Parcerias Estratégicas**: um site interativo por onde a
-proposta é lida, preenchida com os dados da marca parceira e acompanhada até o piloto entrar
-no ar — além de uma versão em formato de apresentação, para reuniões.
+proposta é lida e preenchida com os dados da marca parceira — além de uma versão em formato
+de apresentação, para reuniões.
 
 Todo o texto vem do PDF original, **sem nenhuma alteração de redação**: mesma escrita, mesma
 pontuação, incluindo detalhes como “autonomia..”, “Membros atendido pela AUVP Capital” e o
 duplo espaço em “Acesso facilitado à  [Nome da empresa]”. O que mudou foi o formato: em vez
-de 13 slides replicados, o conteúdo virou um site com seções, navegação, componentes
-interativos e acompanhamento de progresso.
+de 13 slides replicados, o conteúdo virou um site com seções, navegação e componentes
+animados.
 
 As fotos entram como **placeholders** identificados, para serem trocadas depois, e os campos
 que no PDF aparecem entre colchetes viraram **campos editáveis**.
@@ -43,16 +43,16 @@ leitura, menu no celular e rolagem suave. Cada seção tem endereço próprio (`
 **Ecossistema** — as cinco verticais (Escola, Capital, Analítica, Corporate, Agro) num
 seletor navegável por clique ou pelas setas do teclado, em vez de cinco blocos soltos.
 
-**Números** — os indicadores aparecem com contagem animada quando entram na tela.
+**Números** — a dobra revela um dado de cada vez: a régua corre, o número conta a partir do
+zero e só então entra a explicação, para cada indicador ter o seu momento.
 
-**Responsabilidades e Próximos passos** — viraram listas marcáveis, com contador de progresso
-por bloco (`2/4 concluídos`). Serve para acompanhar o combinado ao longo da negociação; as
-marcações ficam salvas no navegador.
+**Projeto-piloto** — os quatro momentos em linha do tempo: a régua corre da esquerda para a
+direita e cada marco acende na sequência.
 
-**Projeto-piloto** — os quatro momentos do piloto em linha do tempo numerada.
-
-**Capa e declarações** — fotos de fundo com parallax leve e revelação dos blocos conforme a
-rolagem. Tudo respeita `prefers-reduced-motion`.
+**Animação dos textos** — títulos e frases de destaque entram palavra a palavra, e os blocos
+sobem conforme a rolagem. Capa e declarações têm parallax leve nas fotos de fundo. Tudo
+respeita `prefers-reduced-motion`; na impressão, o texto volta inteiro para o PDF sair
+pesquisável.
 
 ## Preenchendo a proposta
 
@@ -63,27 +63,27 @@ rolagem. Tudo respeita `prefers-reduced-motion`.
 | Produto ou linha | Por que essa parceria |
 | Membros AUVP Capital (`+x mil`) | Nossa presença em números |
 
-Duas formas equivalentes: clicar direto no trecho sublinhado da página, ou abrir
-**Preencher proposta** no topo. O nome da empresa é digitado uma vez e se propaga por todas
-as seções. Enquanto um campo está vazio, ele mostra o texto original entre colchetes, como no
-PDF.
+Não há botão nem painel de edição: o próprio texto entre colchetes mostra onde editar.
+Clique nele — um clique só — e o placeholder inteiro já vem selecionado, então é só digitar
+por cima. O nome da empresa é digitado uma vez e se propaga por todas as seções; enquanto o
+campo está vazio, ele mostra o texto original entre colchetes, como no PDF.
 
-Tudo fica salvo no `localStorage`. Para levar o preenchimento adiante há três caminhos:
+Tudo fica salvo no `localStorage`. Para levar o preenchimento adiante:
 
 - **Copiar link preenchido** — gera uma URL com os campos (`?empresa=...&produto=...`);
   quem abrir já vê a proposta preenchida.
-- **Exportar / importar `.json`** — leva o preenchimento, as imagens e as marcações para
-  outra máquina.
 - **Salvar em PDF** — imprime o site inteiro, sem a interface, com todas as verticais
   abertas e sem as áreas de foto ainda vazias.
+- **Exportar / importar `.json`** — disponível na apresentação (`apresentacao.html`), que
+  mantém o painel completo de campos e imagens.
 
 ## Trocando as imagens
 
 Cada área tracejada é um placeholder identificado (`Foto — palestra AUVP`, `Imagem — produto
 / conceito`, …). Duas maneiras de colocar a imagem definitiva:
 
-**Rápida, só no seu navegador:** clique na área (ou arraste o arquivo em cima dela). Imagens
-grandes são redimensionadas automaticamente para caber no armazenamento local.
+**Rápida, só no seu navegador:** clique numa área ainda vazia (ou arraste o arquivo em cima
+dela). Imagens grandes são redimensionadas automaticamente para caber no armazenamento local.
 
 **Definitiva, versionada no repositório:** coloque o arquivo em `assets/img/` e adicione o
 atributo `data-src` ao placeholder correspondente:
@@ -96,11 +96,21 @@ atributo `data-src` ao placeholder correspondente:
 Assim a imagem vale para todo mundo que abrir a página. Um upload feito pelo navegador
 continua tendo prioridade sobre o `data-src`; “Remover” volta para a imagem do repositório.
 
-Placeholders: `s1-bg`, `s2-foto`, `s3-bg`, `s4-foto`, `s7-foto`, `s8-bg`, `s10-faixa`,
-`s11-foto`, `s12-bg`, `s13-foto` — os mesmos identificadores nas duas visões, então a imagem
-enviada aparece no site e na apresentação.
+Todas as fotos são exibidas em preto e branco (`filter: grayscale(1)`), como no material
+original. Se uma URL não carregar, o placeholder volta a aparecer no lugar do bloco vazio.
+
+Já definidas: “Somos a maior escola” usa `assets/img/palestra-01.webp`; AUVP Agro usa
+`assets/img/agro.jpeg`; AUVP Escola e AUVP Capital vêm do CDN da AUVP
+(`cdn.asupernova.com.br`), referenciadas por URL. As demais seguem como placeholder.
+
+Identificadores no site: `s1-bg`, `s2-foto`, `s3-bg`, `s7-foto`, `s8-bg`, `s10-faixa`,
+`s11-foto`, `s12-bg`, `s13-foto` e `eco-escola`, `eco-capital`, `eco-analitica`,
+`eco-corporate`, `eco-agro`.
 
 ## Atalhos da apresentação
+
+A apresentação mantém o painel de preenchimento (tecla `E`), útil para exportar e importar
+dados e para enviar imagens.
 
 | Tecla | Ação |
 | --- | --- |
@@ -117,7 +127,7 @@ enviada aparece no site e na apresentação.
 index.html          o site
 apresentacao.html   os 13 slides do PDF, na grade original
 assets/site.css     design do site
-assets/site.js      rolagem, seções, abas, contadores, painel
+assets/site.js      rolagem, animações, seções, abas e contadores
 assets/deck.css     layout do palco 1440×810
 assets/deck.js      navegação dos slides
 assets/shared.css   campos editáveis, placeholders de imagem e avisos

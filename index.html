@@ -31,15 +31,9 @@
     <a href="#proximos-passos">Próximos passos</a>
   </nav>
 
-  <div class="top-actions">
-    <button class="btn btn-solid" id="btnPanel" aria-expanded="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg>
-      <span>Preencher proposta</span>
-    </button>
-    <button class="btn btn-icon" id="btnMenu" aria-label="Abrir menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-  </div>
+  <button class="btn btn-icon" id="btnMenu" aria-label="Abrir menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
 
   <div class="topbar-progress"><span id="scrollBar"></span></div>
 </header>
@@ -53,10 +47,9 @@
 
   <div class="hero-inner">
     <h1 class="hero-title reveal">AUVP | Parcerias Estratégicas</h1>
-    <p class="hero-sub reveal" data-delay="1">Uma parceria para aproximar produtos brasileiros de uma comunidade engajada</p>
-    <div class="hero-actions reveal" data-delay="2">
+    <p class="hero-sub reveal" data-delay="3">Uma parceria para aproximar produtos brasileiros de uma comunidade engajada</p>
+    <div class="hero-actions reveal" data-delay="4">
       <a class="btn btn-light" href="#parceria">Ver a proposta</a>
-      <button class="btn btn-outline" data-open-panel>Preencher com os dados da marca</button>
     </div>
   </div>
 
@@ -68,22 +61,23 @@
 <!-- ============================ QUEM SOMOS ============================ -->
 <section class="section split" id="quem-somos">
   <div class="split-media">
-    <div class="ph ph-tall" data-img="s2-foto" data-label="Foto — palestra AUVP"></div>
+    <div class="ph ph-tall reveal" data-img="s2-foto" data-label="Foto — palestra AUVP"></div>
   </div>
 
   <div class="split-body">
     <p class="kicker reveal">Quem somos</p>
     <h2 class="h2 reveal">Educação financeira para quem quer tomar as próprias decisões</h2>
-    <div class="prose reveal" data-delay="1">
-      <p>Fundada em 2020, em Goiânia, a AUVP nasceu para tornar o conhecimento financeiro mais claro, acessível e independente.</p>
-      <p>Por aqui, descomplicamos o mercado financeiro para que você gerencie seu patrimônio com autonomia.. Hoje, somos um ecossistema que reúne educação, investimentos, tecnologia, soluções financeiras e uma comunidade ativa em todo o Brasil.</p>
+    <div class="prose">
+      <p class="reveal" data-delay="2">Fundada em 2020, em Goiânia, a AUVP nasceu para tornar o conhecimento financeiro mais claro, acessível e independente.</p>
+      <p class="reveal" data-delay="3">Por aqui, descomplicamos o mercado financeiro para que você gerencie seu patrimônio com autonomia.. Hoje, somos um ecossistema que reúne educação, investimentos, tecnologia, soluções financeiras e uma comunidade ativa em todo o Brasil.</p>
     </div>
   </div>
 </section>
 
 <!-- ============================ DECLARAÇÃO ============================ -->
 <section class="statement">
-  <div class="ph ph-bg" data-img="s3-bg" data-label="Foto — auditório lotado" data-parallax="0.12"></div>
+  <div class="ph ph-bg" data-img="s3-bg" data-label="Foto — auditório lotado"
+       data-src="assets/img/palestra-01.webp" data-parallax="0.12"></div>
   <div class="statement-scrim"></div>
   <p class="statement-text reveal">Somos a maior escola de investimentos do Brasil.</p>
 </section>
@@ -95,10 +89,10 @@
       <p class="kicker reveal">Nosso ecossistema</p>
       <h2 class="h2 reveal">Mais que uma escola de investimentos</h2>
     </div>
-    <p class="lead reveal" data-delay="1">A AUVP reúne soluções para diferentes fases da vida financeira. Aqui, o membro aprende, analisa, investe, organiza o patrimônio e cuida da empresa dentro do mesmo ecossistema.</p>
+    <p class="lead reveal" data-delay="2">A AUVP reúne soluções para diferentes fases da vida financeira. Aqui, o membro aprende, analisa, investe, organiza o patrimônio e cuida da empresa dentro do mesmo ecossistema.</p>
   </div>
 
-  <div class="eco reveal" data-delay="1">
+  <div class="eco reveal">
     <div class="eco-tabs" role="tablist" aria-label="Verticais da AUVP">
       <button class="eco-tab" role="tab" id="tab-escola" aria-controls="pan-escola" aria-selected="true">
         <i>01</i><span>AUVP Escola:</span>
@@ -119,27 +113,47 @@
 
     <div class="eco-stage">
       <div class="eco-panel is-on" role="tabpanel" id="pan-escola" aria-labelledby="tab-escola">
-        <h3>AUVP Escola:</h3>
-        <p>O maior treinamento de investimentos do país focado 100% em Buy and Hold.</p>
-      </div>
-      <div class="eco-panel" role="tabpanel" id="pan-capital" aria-labelledby="tab-capital" hidden>
-        <h3>AUVP Capital:</h3>
-        <p>Consultoria de investimentos, alocação estratégica, gestão de riscos e planejamento patrimonial, tributário e sucessório.</p>
-      </div>
-      <div class="eco-panel" role="tabpanel" id="pan-analitica" aria-labelledby="tab-analitica" hidden>
-        <h3>AUVP Analítica:</h3>
-        <p>Plataforma de análise fundamentalista que cruza dados e calcula o preço justo de ações e FIIs para nossos membros investirem com base na realidade e não em achismos.</p>
-      </div>
-      <div class="eco-panel" role="tabpanel" id="pan-corporate" aria-labelledby="tab-corporate" hidden>
-        <h3>AUVP Corporate: </h3>
-        <p>Gestão financeira para micro, pequenas e médias empresas, com recebimentos, pagamentos, conciliação, folha, cartões, múltiplas contas e integração com ERPs.</p>
-      </div>
-      <div class="eco-panel" role="tabpanel" id="pan-agro" aria-labelledby="tab-agro" hidden>
-        <h3>AUVP Agro: </h3>
-        <p>Conhecimento, ferramentas e execução para o produtor rural proteger preços, acompanhar o mercado e tomar decisões com mais controle.</p>
+        <div class="eco-copy">
+          <h3>AUVP Escola:</h3>
+          <p>O maior treinamento de investimentos do país focado 100% em Buy and Hold.</p>
+        </div>
+        <div class="ph eco-media" data-img="eco-escola" data-label="Foto — AUVP Escola"
+             data-src="https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp"></div>
       </div>
 
-      <div class="ph eco-media" data-img="s4-foto" data-label="Foto — sede AUVP Capital"></div>
+      <div class="eco-panel" role="tabpanel" id="pan-capital" aria-labelledby="tab-capital" hidden>
+        <div class="eco-copy">
+          <h3>AUVP Capital:</h3>
+          <p>Consultoria de investimentos, alocação estratégica, gestão de riscos e planejamento patrimonial, tributário e sucessório.</p>
+        </div>
+        <div class="ph eco-media" data-img="eco-capital" data-label="Foto — AUVP Capital"
+             data-src="https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20desktop.webp"></div>
+      </div>
+
+      <div class="eco-panel" role="tabpanel" id="pan-analitica" aria-labelledby="tab-analitica" hidden>
+        <div class="eco-copy">
+          <h3>AUVP Analítica:</h3>
+          <p>Plataforma de análise fundamentalista que cruza dados e calcula o preço justo de ações e FIIs para nossos membros investirem com base na realidade e não em achismos.</p>
+        </div>
+        <div class="ph eco-media" data-img="eco-analitica" data-label="Foto — AUVP Analítica"></div>
+      </div>
+
+      <div class="eco-panel" role="tabpanel" id="pan-corporate" aria-labelledby="tab-corporate" hidden>
+        <div class="eco-copy">
+          <h3>AUVP Corporate: </h3>
+          <p>Gestão financeira para micro, pequenas e médias empresas, com recebimentos, pagamentos, conciliação, folha, cartões, múltiplas contas e integração com ERPs.</p>
+        </div>
+        <div class="ph eco-media" data-img="eco-corporate" data-label="Foto — AUVP Corporate"></div>
+      </div>
+
+      <div class="eco-panel" role="tabpanel" id="pan-agro" aria-labelledby="tab-agro" hidden>
+        <div class="eco-copy">
+          <h3>AUVP Agro: </h3>
+          <p>Conhecimento, ferramentas e execução para o produtor rural proteger preços, acompanhar o mercado e tomar decisões com mais controle.</p>
+        </div>
+        <div class="ph eco-media" data-img="eco-agro" data-label="Foto — AUVP Agro"
+             data-src="assets/img/agro.jpeg"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -149,20 +163,20 @@
   <div class="section-head">
     <div>
       <p class="kicker reveal">Nossa presença em números</p>
-      <h2 class="h2 h2-md reveal">Uma comunidade que não para de crescer, gente que aprende, investe e toma decisões com a AUVP</h2>
+      <h2 class="h2 h2-md reveal" data-delay="1">Uma comunidade que não para de crescer, gente que aprende, investe e toma decisões com a AUVP</h2>
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat reveal">
+  <div class="stats stats-seq">
+    <div class="stat reveal" data-delay="2">
       <div class="stat-value" data-count>+19 mil</div>
       <p class="stat-label">Alunos ativos na AUVP Escola</p>
     </div>
-    <div class="stat reveal" data-delay="1">
+    <div class="stat reveal" data-delay="3">
       <div class="stat-value"><span class="field" data-field="membros" data-ph="+x mil" data-raw="1"></span></div>
       <p class="stat-label">Membros atendido pela AUVP Capital</p>
     </div>
-    <div class="stat reveal" data-delay="2">
+    <div class="stat reveal" data-delay="4">
       <div class="stat-value">Top 1</div>
       <p class="stat-label">Destaque como a consultoria de investimentos número 1 no ranking de parceiros do BTG Pactual pelo segundo ano consecutivo</p>
     </div>
@@ -174,17 +188,13 @@
   <div class="split-body">
     <p class="kicker reveal">Por que essa parceria faz sentido</p>
     <h2 class="h2 h2-md reveal">Tem um produto bom de um lado e uma comunidade que reconhece do outro. Vamos colocar os dois para conversar.</h2>
-    <div class="prose prose-lg reveal" data-delay="1">
+    <div class="prose prose-lg reveal" data-delay="2">
       <p>A <span class="field" data-field="empresa" data-ph="Nome da marca"></span> chamou nossa atenção por <span class="field" data-field="diferencial" data-ph="diferencial concreto"></span>. Por isso, queremos apresentar <span class="field" data-field="produto" data-ph="produto ou linha"></span> nos canais da AUVP, com benefício exclusivo e vendas rastreáveis.</p>
     </div>
-    <p class="field-hint reveal" data-delay="2">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg>
-      Os trechos destacados são editáveis — clique e escreva, ou use <button class="linkish" data-open-panel>preencher proposta</button>.
-    </p>
   </div>
 
   <div class="split-media">
-    <div class="ph ph-tall" data-img="s7-foto" data-label="Imagem — produto / conceito"></div>
+    <div class="ph ph-tall reveal" data-img="s7-foto" data-label="Imagem — produto / conceito"></div>
   </div>
 </section>
 
@@ -194,8 +204,8 @@
   <div class="statement-scrim"></div>
   <ul class="gains">
     <li class="reveal">A marca ganha visibilidade qualificada.</li>
-    <li class="reveal" data-delay="1">Os membros conhecem um bom produto. </li>
-    <li class="reveal" data-delay="2">A parceria cresce com base nos resultados.</li>
+    <li class="reveal" data-delay="4">Os membros conhecem um bom produto. </li>
+    <li class="reveal" data-delay="8">A parceria cresce com base nos resultados.</li>
   </ul>
 </section>
 
@@ -220,7 +230,7 @@
       </ul>
     </article>
 
-    <article class="card reveal" data-delay="1">
+    <article class="card reveal" data-delay="2">
       <span class="card-n">02</span>
       <h3>Para os membros</h3>
       <ul class="ticks">
@@ -231,7 +241,7 @@
       </ul>
     </article>
 
-    <article class="card reveal" data-delay="2">
+    <article class="card reveal" data-delay="4">
       <span class="card-n">03</span>
       <h3>Para a AUVP</h3>
       <ul class="ticks">
@@ -250,7 +260,7 @@
       <p class="kicker reveal">Projeto-piloto</p>
       <h2 class="h2 reveal">Começar pequeno, medir direito e decidir com dados</h2>
     </div>
-    <div class="badge-30 reveal" data-delay="1" aria-hidden="true">
+    <div class="badge-30 reveal" data-delay="2" aria-hidden="true">
       <b>30</b><span>dias</span>
     </div>
   </div>
@@ -260,21 +270,21 @@
       <span class="tl-n">01</span>
       <p>Para validar a aderência da <span class="field" data-field="empresa" data-ph="nome da empresa"></span> à comunidade AUVP, sugerimos um projeto-piloto de 30 dias.</p>
     </li>
-    <li class="reveal" data-delay="1">
+    <li class="reveal" data-delay="2">
       <span class="tl-n">02</span>
       <p>30 dias. Uma oferta. Canais definidos. Compra rastreável. Dados na mesa.</p>
     </li>
-    <li class="reveal" data-delay="2">
+    <li class="reveal" data-delay="4">
       <span class="tl-n">03</span>
       <p>Durante o piloto, acompanhamos acessos, uso do cupom, pedidos, faturamento e conversão.</p>
     </li>
-    <li class="reveal" data-delay="3">
+    <li class="reveal" data-delay="6">
       <span class="tl-n">04</span>
       <p>No fim, decidimos juntos se a parceria deve ser ajustada, mantida ou ampliada.</p>
     </li>
   </ol>
 
-  <div class="ph ph-strip" data-img="s10-faixa" data-label="Foto — plateia AUVP"></div>
+  <div class="ph ph-strip reveal" data-img="s10-faixa" data-label="Foto — plateia AUVP"></div>
 </section>
 
 <!-- ============================ RESPONSABILIDADES ============================ -->
@@ -284,84 +294,67 @@
       <p class="kicker reveal">Responsabilidades</p>
       <h2 class="h2 reveal">Cada lado precisa saber o que entrega</h2>
     </div>
-    <p class="lead reveal" data-delay="1">Marque os itens conforme forem combinados — o acompanhamento fica salvo neste navegador.</p>
   </div>
 
   <div class="cards two">
-    <article class="card card-check reveal">
-      <header>
-        <h3>AUVP Capital</h3>
-        <span class="meter" data-meter="resp-auvp"></span>
-      </header>
-      <ul class="checklist">
-        <li><button type="button" data-check="resp-auvp-1"><span class="box"></span>Produzir e aprovar a comunicação</button></li>
-        <li><button type="button" data-check="resp-auvp-2"><span class="box"></span>Divulgar a ação nos canais acordados</button></li>
-        <li><button type="button" data-check="resp-auvp-3"><span class="box"></span>Acompanhar os indicadores da campanha</button></li>
+    <article class="card reveal">
+      <span class="card-n">01</span>
+      <h3>AUVP Capital</h3>
+      <ul class="ticks ticks-seq">
+        <li>Produzir e aprovar a comunicação</li>
+        <li>Divulgar a ação nos canais acordados</li>
+        <li>Acompanhar os indicadores da campanha</li>
       </ul>
     </article>
 
-    <article class="card card-check reveal" data-delay="1">
-      <header>
-        <h3>Empresa parceira</h3>
-        <span class="meter" data-meter="resp-parceira"></span>
-      </header>
-      <ul class="checklist">
-        <li><button type="button" data-check="resp-parceira-1"><span class="box"></span>Disponibilizar o benefício acordado</button></li>
-        <li><button type="button" data-check="resp-parceira-2"><span class="box"></span>Garantir estoque e capacidade de atendimento</button></li>
-        <li><button type="button" data-check="resp-parceira-3"><span class="box"></span>Fornecer imagens e informações dos produtos</button></li>
-        <li><button type="button" data-check="resp-parceira-4"><span class="box"></span>Disponibilizar cupom ou link rastreável</button></li>
-        <li><button type="button" data-check="resp-parceira-5"><span class="box"></span>Realizar vendas, entregas e atendimento</button></li>
-        <li><button type="button" data-check="resp-parceira-6"><span class="box"></span>Enviar relatórios e pagar a comissão acordada</button></li>
+    <article class="card reveal" data-delay="2">
+      <span class="card-n">02</span>
+      <h3>Empresa parceira</h3>
+      <ul class="ticks ticks-seq">
+        <li>Disponibilizar o benefício acordado</li>
+        <li>Garantir estoque e capacidade de atendimento</li>
+        <li>Fornecer imagens e informações dos produtos</li>
+        <li>Disponibilizar cupom ou link rastreável</li>
+        <li>Realizar vendas, entregas e atendimento</li>
+        <li>Enviar relatórios e pagar a comissão acordada</li>
       </ul>
     </article>
   </div>
 
-  <div class="ph ph-strip" data-img="s13-foto" data-label="Foto — fachada AUVP"></div>
+  <div class="ph ph-strip reveal" data-img="s13-foto" data-label="Foto — fachada AUVP"></div>
 </section>
 
 <!-- ============================ PRÓXIMOS PASSOS ============================ -->
 <section class="section" id="proximos-passos">
   <div class="split-narrow">
-    <div class="ph ph-tall ph-sm" data-img="s11-foto" data-label="Foto — dominós"></div>
+    <div class="ph ph-tall ph-sm reveal" data-img="s11-foto" data-label="Foto — dominós"></div>
     <div>
       <p class="kicker reveal">Próximos passos</p>
       <h2 class="h2 reveal">Vamos construir esta parceria?</h2>
-      <p class="lead reveal" data-delay="1">A união entre a AUVP Escola e a <span class="field" data-field="empresa" data-ph="Nome da empresa"></span> pode gerar valor para sua empresa, para nossos membros e para o comércio nacional.</p>
+      <p class="lead reveal" data-delay="2">A união entre a AUVP Escola e a <span class="field" data-field="empresa" data-ph="Nome da empresa"></span> pode gerar valor para sua empresa, para nossos membros e para o comércio nacional.</p>
     </div>
-  </div>
-
-  <div class="steps-head reveal">
-    <span class="meter meter-lg" data-meter="passo"></span>
   </div>
 
   <ol class="steps">
     <li class="reveal">
-      <button type="button" data-check="passo-1">
-        <span class="box"></span>
-        <b>1. Escolher</b>
-        <span>Definir os produtos iniciais da parceria</span>
-      </button>
-    </li>
-    <li class="reveal" data-delay="1">
-      <button type="button" data-check="passo-2">
-        <span class="box"></span>
-        <b>2. Alinhar</b>
-        <span>Combinar benefício para os membros, comissão e forma de rastreamento.</span>
-      </button>
+      <span class="step-n">01</span>
+      <b>1. Escolher</b>
+      <span>Definir os produtos iniciais da parceria</span>
     </li>
     <li class="reveal" data-delay="2">
-      <button type="button" data-check="passo-3">
-        <span class="box"></span>
-        <b>3. Preparar</b>
-        <span>Aprovar canais, materiais e formalizar as condições.</span>
-      </button>
+      <span class="step-n">02</span>
+      <b>2. Alinhar</b>
+      <span>Combinar benefício para os membros, comissão e forma de rastreamento.</span>
     </li>
-    <li class="reveal" data-delay="3">
-      <button type="button" data-check="passo-4">
-        <span class="box"></span>
-        <b>4. Começar</b>
-        <span>Colocar o piloto de 30 dias no ar e acompanhar os resultados.</span>
-      </button>
+    <li class="reveal" data-delay="4">
+      <span class="step-n">03</span>
+      <b>3. Preparar</b>
+      <span>Aprovar canais, materiais e formalizar as condições.</span>
+    </li>
+    <li class="reveal" data-delay="6">
+      <span class="step-n">04</span>
+      <b>4. Começar</b>
+      <span>Colocar o piloto de 30 dias no ar e acompanhar os resultados.</span>
     </li>
   </ol>
 </section>
@@ -372,10 +365,9 @@
   <div class="statement-scrim"></div>
   <div class="closing-inner">
     <p class="closing-text reveal">O próximo passo é desenhar as condições do piloto em conjunto.</p>
-    <div class="closing-actions reveal" data-delay="1">
-      <button class="btn btn-light" data-open-panel>Preencher a proposta</button>
-      <button class="btn btn-outline" id="btnShare">Copiar link preenchido</button>
-      <button class="btn btn-outline" id="btnPrintTop">Salvar em PDF</button>
+    <div class="closing-actions reveal" data-delay="6">
+      <button class="btn btn-light" id="btnShare">Copiar link preenchido</button>
+      <button class="btn btn-outline" id="btnPrint">Salvar em PDF</button>
     </div>
   </div>
 </section>
@@ -389,67 +381,6 @@
     <a href="apresentacao.html">Ver em formato de apresentação</a>
   </div>
 </footer>
-
-<!-- ============================ PAINEL ============================ -->
-<div class="panel-veil" id="veil" hidden></div>
-
-<aside class="panel" id="panel" hidden aria-label="Preencher proposta">
-  <div class="panel-head">
-    <div>
-      <h4>Preencher proposta</h4>
-      <p class="panel-sub"><span id="fillCount">0</span> de 4 campos preenchidos</p>
-    </div>
-    <button class="btn btn-icon ghost" data-close-panel aria-label="Fechar painel">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-  </div>
-
-  <div class="panel-body">
-    <p class="hint">Preencha aqui ou clique direto no texto destacado da página. Tudo fica salvo neste navegador.</p>
-
-    <label class="fieldrow">
-      <span>Nome da empresa / marca</span>
-      <input type="text" data-input="empresa" placeholder="Nome da empresa">
-      <em>Aparece em “Por que essa parceria”, “Nossa proposta”, “Projeto-piloto” e “Próximos passos”</em>
-    </label>
-
-    <label class="fieldrow">
-      <span>Diferencial concreto</span>
-      <textarea rows="2" data-input="diferencial" placeholder="diferencial concreto"></textarea>
-      <em>“…chamou nossa atenção por …”</em>
-    </label>
-
-    <label class="fieldrow">
-      <span>Produto ou linha</span>
-      <textarea rows="2" data-input="produto" placeholder="produto ou linha"></textarea>
-      <em>“…queremos apresentar … nos canais da AUVP”</em>
-    </label>
-
-    <label class="fieldrow">
-      <span>Membros AUVP Capital</span>
-      <input type="text" data-input="membros" placeholder="+x mil">
-      <em>Seção “Nossa presença em números”</em>
-    </label>
-
-    <div class="divider"></div>
-
-    <h5>Imagens</h5>
-    <p class="hint">Clique numa área tracejada da página, ou arraste o arquivo sobre ela.</p>
-    <div class="imglist" id="imglist"></div>
-
-    <div class="divider"></div>
-
-    <div class="actions">
-      <button class="btn btn-block" id="btnShare2">Copiar link preenchido</button>
-      <button class="btn btn-block" id="btnExport">Exportar dados (.json)</button>
-      <button class="btn btn-block" id="btnImport">Importar dados (.json)</button>
-      <button class="btn btn-block" id="btnPrint">Salvar em PDF</button>
-      <button class="btn btn-block danger" id="btnReset">Limpar tudo</button>
-    </div>
-  </div>
-</aside>
-
-<input type="file" id="jsonPicker" accept="application/json,.json" hidden>
 
 <script src="assets/state.js"></script>
 <script src="assets/site.js"></script>
