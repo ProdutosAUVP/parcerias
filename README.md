@@ -43,14 +43,17 @@ leitura, menu no celular e rolagem suave. Cada seção tem endereço próprio (`
 **Ecossistema** — as cinco verticais (Escola, Capital, Analítica, Corporate, Agro) num
 seletor navegável por clique ou pelas setas do teclado, cada uma com a sua foto.
 
-**Nossa proposta de parceria** — os três lados viram um acordeão: abre e fecha na linha
-inteira ou no botão, e a lista desliza junto.
+**Nossa proposta de parceria** — os três lados ficam lado a lado, em cards, e cada card abre
+e fecha a própria lista.
 
 **Números** — a dobra revela um dado de cada vez: a régua corre, o número conta a partir do
 zero e só então entra a explicação, para cada indicador ter o seu momento.
 
 **Projeto-piloto** — os quatro momentos em linha do tempo: a régua corre da esquerda para a
 direita e cada marco acende na sequência.
+
+**Responsabilidades** — a lista da empresa parceira corre em duas colunas, para os dois lados
+ficarem com blocos de tamanho parecido.
 
 **Animação dos textos** — títulos e frases de destaque entram palavra a palavra, e os blocos
 sobem conforme a rolagem. Capa e declarações têm parallax leve nas fotos de fundo. Tudo
@@ -103,14 +106,28 @@ Já definidas:
 
 | Onde | Imagem |
 | --- | --- |
-| Capa | `assets/img/galera summit.webp` |
-| Somos a maior escola de investimentos do Brasil | `assets/img/palestra-01.webp` |
-| Por que essa parceria faz sentido | `assets/img/trofeu summit.webp` |
-| A marca ganha visibilidade qualificada | livecoins.com.br (URL) |
+| Capa | `assets/img/web/galera-summit.webp` |
+| Quem somos | `assets/img/web/palestrante-raul.webp` |
+| Somos a maior escola de investimentos do Brasil | `assets/img/web/palestra-01.webp` |
 | AUVP Escola / AUVP Capital | cdn.asupernova.com.br (URL) |
-| AUVP Agro | `assets/img/agro.jpeg` |
+| AUVP Analítica | media.licdn.com (URL) |
+| AUVP Agro | `assets/img/web/agro.webp` |
+| Por que essa parceria faz sentido | `assets/img/web/trofeu-summit.webp` |
+| A marca ganha visibilidade qualificada | livecoins.com.br (URL) |
+| Projeto-piloto | `assets/img/web/olhos-summit.webp` |
 
-As demais seguem como placeholder. O logo horizontal (`assets/AUVP - HORIZONTAL BRANCO
+As demais seguem como placeholder.
+
+### Peso das imagens
+
+As fotos do site são servidas de `assets/img/web/`: versões WebP redimensionadas dos originais
+que estão em `assets/img/`, que ficam intactos. Juntas, as originais somam cerca de 11,7 MB —
+só a de “olhos summit” tem 5,7 MB — e as versões web somam 0,7 MB. Para trocar uma foto,
+coloque o arquivo em `assets/img/`, gere a versão web e aponte o `data-src` para ela.
+
+As fotos das verticais que ficam em abas escondidas são pré-carregadas assim que a página
+abre: sem isso o navegador só busca a imagem quando a aba aparece, e a foto piscava vazia na
+primeira vez que se clicava na vertical. O logo horizontal (`assets/AUVP - HORIZONTAL BRANCO
 (1).svg`) está embutido como símbolo SVG no topo e no rodapé, com `fill: currentColor`, então
 ele acompanha o fundo: branco sobre as dobras escuras, preto sobre o papel.
 

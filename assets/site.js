@@ -193,6 +193,16 @@
     });
   });
 
+  /* Painéis escondidos não baixam a imagem de fundo: o navegador só busca
+     quando o painel aparece, e a foto piscava vazia ao trocar de aba.
+     Aqui elas são carregadas em segundo plano assim que a página abre. */
+  (function preloadHidden() {
+    $$('.eco-panel[hidden] .ph[data-src]').forEach(function (el) {
+      var img = new Image();
+      img.src = el.dataset.src;
+    });
+  })();
+
   /* ------------------------------------------ seletor do ecossistema */
   var tabs = $$('.eco-tab');
   var panels = $$('.eco-panel');

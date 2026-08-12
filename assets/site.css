@@ -279,6 +279,9 @@ a{color:inherit}
 .ph-tools{display:none!important}
 /* recorte mais baixo, para centralizar quem está em cena */
 .ph-low{background-position:center 58%}
+.ph-top{background-position:center 22%}   /* mostra o alto do quadro: rostos inteiros */
+.ph-left{background-position:40% 50%}     /* o assunto está à esquerda do centro na foto */
+.ph-strip.ph-low{background-position:center 74%}
 
 .ph-tall{
   aspect-ratio:3/4;
@@ -483,6 +486,13 @@ a{color:inherit}
   font-size:clamp(16px,1.2vw,18px);
 }
 .ticks li+li{margin-top:12px}
+/* a lista maior corre em duas colunas: os dois cartões ficam com a mesma
+   altura e a diferença de quantidade entre os lados deixa de saltar aos olhos */
+.ticks-2col{columns:2;column-gap:clamp(20px,2.4vw,36px)}
+.ticks-2col li{break-inside:avoid}
+.ticks-2col li+li{margin-top:0}
+.ticks-2col li{margin-bottom:12px}
+
 .ticks-seq li{opacity:0;transform:translateX(-.5em)}
 .card.is-in .ticks-seq li{
   opacity:1;transform:none;
@@ -498,43 +508,35 @@ a{color:inherit}
   transform:rotate(-45deg);
 }
 
-/* ============================ ACORDEÃO ============================ */
-.accordion{
-  border-top:1px solid var(--line);
-  max-width:1000px;
-}
-.acc-item{border-bottom:1px solid var(--line)}
-.acc-head{
-  position:relative;
-  display:flex;align-items:center;gap:clamp(14px,1.8vw,24px);
-  padding:clamp(20px,2.4vw,30px) 0;
-  cursor:pointer;
-}
-.acc-n{
-  font-size:12px;font-weight:700;letter-spacing:.16em;
-  color:var(--muted);
-  flex:none;
-  padding-top:.25em;
+/* ================= PROPOSTA: cards paralelos com dropdown ================ */
+.prop-cards{align-items:start}
+.prop-cards .card{cursor:default}
+.prop-cards .card:hover{transform:none;box-shadow:none}
+
+.acc-head{cursor:pointer}
+.acc-row{
+  display:flex;align-items:center;gap:14px;
+  justify-content:space-between;
 }
 .acc-title{
   flex:1;
-  font-size:clamp(20px,2.3vw,30px);
-  font-weight:700;letter-spacing:-.015em;
-  line-height:1.2;
+  font-size:clamp(19px,1.7vw,24px);
+  font-weight:700;letter-spacing:-.01em;
+  line-height:1.25;
 }
 .acc-toggle{
   flex:none;
-  width:44px;height:44px;
+  width:40px;height:40px;
   display:grid;place-items:center;
   border:1px solid var(--line);
   border-radius:999px;
   background:transparent;
   color:inherit;
   cursor:pointer;
-  transition:background-color .2s ease,border-color .2s ease;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease;
 }
 .acc-toggle svg{
-  width:22px;height:22px;
+  width:20px;height:20px;
   fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
   transition:transform .35s var(--ease);
 }
@@ -551,7 +553,7 @@ a{color:inherit}
 .acc-item.is-open .acc-panel{grid-template-rows:1fr}
 .acc-panel>*{overflow:hidden;min-height:0}
 .acc-panel .ticks{
-  padding:0 0 clamp(22px,2.6vw,32px) clamp(34px,4vw,58px);
+  padding-top:20px;
   opacity:0;
   transform:translateY(-6px);
   transition:opacity .3s ease,transform .35s var(--ease);
@@ -641,12 +643,6 @@ a{color:inherit}
   transition:transform .8s var(--ease);
   transition-delay:calc(var(--d,0) * 90ms + 120ms);
 }
-.step-n{
-  display:block;
-  font-size:12px;font-weight:700;letter-spacing:.16em;
-  color:var(--muted);
-  margin-bottom:14px;
-}
 .steps b{
   display:block;
   font-size:clamp(19px,1.7vw,23px);
@@ -717,6 +713,7 @@ a{color:inherit}
   .eco-tab{width:auto;white-space:nowrap;font-size:17px;padding:12px 16px;border:1px solid var(--line)}
   .eco-tab i{display:none}
   .cards.three,.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ticks-2col{columns:1}
 }
 
 @media (max-width:820px){
