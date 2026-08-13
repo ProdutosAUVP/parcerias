@@ -203,6 +203,36 @@
     return t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
   }
 
+  /* Dobras com etapas internas: a seta percorre as verticais e abre os
+     cartões da proposta antes de passar para a dobra seguinte, como os
+     fragmentos de um slide. */
+  var steppers = {
+    ecossistema: {
+      total: function () { return tabs.length; },
+      at: function () {
+        var i = 0;
+        tabs.forEach(function (t, n) { if (t.getAttribute('aria-selected') === 'true') i = n; });
+        return i;
+      },
+      go: function (i) { selectTab(i); }
+    },
+    proposta: {
+      total: function () { return accItems.length; },
+      at: function () {
+        var open = accItems.filter(function (it) { return it.classList.contains('is-open'); }).length;
+        return open - 1;                        // -1 quando todos estão fechados
+      },
+      /* os cartões abrem em cadeia: 1, depois 1+2, depois os três */
+      go: function (i) {
+        accItems.forEach(function (it, n) { setAcc(it, n <= i); });
+      }
+    }
+  };
+
+  function stepperOf(section) {
+    return section && steppers[section.id];
+  }
+
   document.addEventListener('keydown', function (e) {
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;   // as abas usam as setas
     if (isTyping(e.target)) return;
@@ -217,7 +247,21 @@
       default: return;
     }
     e.preventDefault();
-    goSlide(currentSlide() + step);
+
+    var cur = currentSlide();
+    var here = stepperOf(slides[cur]);
+    if (here) {
+      var next = here.at() + step;
+      if (next >= 0 && next < here.total()) { here.go(next); return; }
+    }
+
+    var target = Math.max(0, Math.min(slides.length - 1, cur + step));
+    goSlide(target);
+
+    /* chegando numa dobra com etapas: entrando pela frente ela começa do
+       primeiro passo; voltando de baixo, já vem com tudo aberto */
+    var there = stepperOf(slides[target]);
+    if (there && target !== cur) there.go(step > 0 ? 0 : there.total() - 1);
   });
 
   /* menu no celular */
@@ -271,24 +315,26 @@
   });
 
   /* --------------------------------------- acordeão da proposta */
-  $$('.acc-item').forEach(function (item) {
+  var accItems = $$('.acc-item');
+
+  function setAcc(item, open) {
+    item.classList.toggle('is-open', open);
+    var toggle = $('.acc-toggle', item);
+    if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  accItems.forEach(function (item) {
     var head = $('.acc-head', item);
     var toggle = $('.acc-toggle', item);
 
-    function set(open) {
-      item.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
+    function flip() { setAcc(item, !item.classList.contains('is-open')); }
 
-    toggle.addEventListener('click', function (e) {
-      e.stopPropagation();
-      set(!item.classList.contains('is-open'));
-    });
+    toggle.addEventListener('click', function (e) { e.stopPropagation(); flip(); });
 
     /* a linha inteira abre e fecha, menos o trecho editável do título */
     head.addEventListener('click', function (e) {
       if (e.target.closest('.field, .acc-toggle')) return;
-      set(!item.classList.contains('is-open'));
+      flip();
     });
   });
 

@@ -41,15 +41,22 @@ leitura, menu no celular e rolagem suave. Cada seção tem endereço próprio (`
 `#proposta`, …), útil para mandar alguém direto ao ponto.
 
 **Setas do teclado** — a página anda dobra a dobra como um slide: `→` `↓` `PageDown` avançam,
-`←` `↑` `PageUp` voltam, `Home` e `End` vão ao começo e ao fim. As setas continuam trocando a
-vertical quando o foco está no seletor do ecossistema, e não navegam enquanto se digita num
-campo.
+`←` `↑` `PageUp` voltam, `Home` e `End` vão ao começo e ao fim.
+
+Duas dobras têm etapas internas, como os fragmentos de um slide: no **Ecossistema** a seta
+percorre as cinco verticais uma a uma e só depois passa adiante; em **Nossa proposta de
+parceria** ela abre os três cartões em cadeia — primeiro um, depois dois, depois os três.
+Voltando, as etapas se desfazem na ordem inversa, e quem chega numa dessas dobras vindo de
+baixo já a encontra completa.
+
+As setas continuam trocando a vertical quando o foco está no seletor do ecossistema, e não
+navegam enquanto se digita num campo.
 
 **Ecossistema** — as cinco verticais (Escola, Capital, Analítica, Corporate, Agro) num
 seletor navegável por clique ou pelas setas do teclado, cada uma com a sua foto.
 
 **Nossa proposta de parceria** — os três lados ficam lado a lado, em cards, e cada card abre
-e fecha a própria lista.
+e fecha a própria lista, no clique ou pelas setas do teclado.
 
 **Números** — a dobra revela um dado de cada vez: a régua corre, o número conta a partir do
 zero e só então entra a explicação, para cada indicador ter o seu momento.
