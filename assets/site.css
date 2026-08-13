@@ -209,8 +209,8 @@ a{color:inherit}
 .hero{
   position:relative;
   min-height:100svh;
-  display:flex;align-items:center;
-  padding:120px var(--gutter) 140px;
+  display:flex;align-items:flex-end;
+  padding:120px var(--gutter) clamp(96px,13vh,150px);
   background:var(--dark);
   color:#fff;
   overflow:hidden;
@@ -243,7 +243,7 @@ a{color:inherit}
   max-width:var(--maxw);
   margin:0 auto;
   width:100%;
-  padding-top:clamp(60px,11vh,140px);   /* título e texto mais baixos na dobra */
+  padding-top:0;
 }
 .hero-title{
   font-size:clamp(38px,7.4vw,104px);
@@ -300,6 +300,7 @@ a{color:inherit}
   background-position:center top;
 }
 .ph-left{background-position:40% 50%}     /* o assunto está à esquerda do centro na foto */
+.ph-corp{background-position:center 33%}  /* enquadra os dois homens conversando */
 .ph-strip.ph-low{background-position:center 74%}
 
 .ph-tall{

@@ -121,14 +121,16 @@ Já definidas:
 | Somos a maior escola de investimentos do Brasil | `assets/img/web/palestra-01.webp` |
 | AUVP Escola / AUVP Capital | cdn.asupernova.com.br (URL) |
 | AUVP Analítica | media.licdn.com (URL) |
+| AUVP Corporate | `assets/img/web/corporate.webp` |
 | AUVP Agro | `assets/img/web/agro.webp` |
 | Por que essa parceria faz sentido | `assets/img/web/trofeu-summit.webp` |
 | A marca ganha visibilidade qualificada | livecoins.com.br (URL) |
 | Projeto-piloto | `assets/img/web/olhos-summit.webp` |
 | O próximo passo é desenhar as condições | `assets/img/web/palestras.webp` |
 
-Na capa a foto começa logo abaixo do topo fixo: ela preenche a altura toda e as pessoas, que
-ficam no alto do quadro, passavam por baixo do cabeçalho.
+Na capa a foto começa logo abaixo do topo fixo — ela preenche a altura toda e as pessoas, que
+ficam no alto do quadro, passavam por baixo do cabeçalho — e o título e o texto ficam junto ao
+fim da dobra, longe dos rostos.
 
 Responsabilidades e Próximos passos não têm foto. A dobra final e o rodapé compartilham o
 mesmo preto, para a foto emendar no rodapé sem degrau; no celular a foto aparece inteira em
@@ -145,7 +147,9 @@ As fotos das verticais que ficam em abas escondidas são pré-carregadas assim q
 abre: sem isso o navegador só busca a imagem quando a aba aparece, e a foto piscava vazia na
 primeira vez que se clicava na vertical. O logo horizontal (`assets/AUVP - HORIZONTAL BRANCO
 (1).svg`) está embutido como símbolo SVG no topo e no rodapé, com `fill: currentColor`, então
-ele acompanha o fundo: branco sobre as dobras escuras, preto sobre o papel.
+ele acompanha o fundo: branco sobre as dobras escuras, preto sobre o papel. O favicon
+(`assets/olho-amarelo.svg`) e o olho branco da capa da apresentação
+(`assets/olho-branco.svg`) vêm do repositório `ProdutosAUVP/central`.
 
 Identificadores no site: `s1-bg`, `s2-foto`, `s3-bg`, `s7-foto`, `s8-bg`, `s10-faixa`,
 `s11-foto`, `s12-bg`, `s13-foto` e `eco-escola`, `eco-capital`, `eco-analitica`,

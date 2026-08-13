@@ -60,7 +60,10 @@ body:not(.presenting) .statement .field:focus{background:rgba(255,255,255,.22)}
   border-color:#3a3a3a;
   background:repeating-linear-gradient(45deg,rgba(255,255,255,.035) 0 10px,transparent 10px 20px);
 }
-.ph.has-image::after{content:"";border:0;background:none}
+/* com foto aplicada não sobra marcação nenhuma. O !important é preciso:
+   a regra dos fundos escuros (.slide.dark .ph::after) tem especificidade
+   maior e reimprimia as listras por cima da imagem. */
+.ph.has-image::after{content:""!important;border:0!important;background:none!important}
 .ph.is-over::after{background-color:rgba(0,0,0,.16);border-color:#000;color:#000}
 
 .ph-tools{
