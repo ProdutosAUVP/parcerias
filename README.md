@@ -4,11 +4,14 @@ Plataforma web da proposta **AUVP | Parcerias Estratégicas**: um site interativ
 proposta é lida e preenchida com os dados da marca parceira — além de uma versão em formato
 de apresentação, para reuniões.
 
-Todo o texto vem do PDF original, **sem nenhuma alteração de redação**: mesma escrita, mesma
-pontuação, incluindo detalhes como “autonomia..”, “Membros atendido pela AUVP Capital” e o
-duplo espaço em “Acesso facilitado à  [Nome da empresa]”. O que mudou foi o formato: em vez
-de 13 slides replicados, o conteúdo virou um site com seções, navegação e componentes
-animados.
+Todo o texto vem do PDF original, com a mesma escrita e a mesma pontuação — incluindo detalhes
+como “autonomia..”, “Membros atendido pela AUVP Capital” e o duplo espaço em “Acesso facilitado
+à  [Nome da empresa]”. O que mudou foi o formato: em vez de 13 slides replicados, o conteúdo
+virou um site com seções, navegação e componentes animados.
+
+Só dois trechos foram editados depois, a pedido: em Responsabilidades o lado da casa passou a
+ser “AUVP”, sem “Capital”, e em Próximos passos a frase virou “A união entre a AUVP e a [Nome
+da empresa]”, sem “Escola”. As duas mudanças valem para o site e para a apresentação.
 
 As fotos entram como **placeholders** identificados, para serem trocadas depois, e os campos
 que no PDF aparecem entre colchetes viraram **campos editáveis**.
