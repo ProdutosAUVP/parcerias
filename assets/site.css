@@ -223,6 +223,14 @@ a{color:inherit}
   z-index:-2;
   cursor:pointer;
 }
+/* A foto da capa preenche a altura toda: as pessoas ficam no topo do quadro
+   e passavam por baixo do topo fixo. Aqui ela começa logo abaixo dele —
+   sem transbordo de parallax, que reabriria o vão. */
+.hero .ph-bg{
+  top:clamp(78px,9vh,104px);
+  bottom:0;
+  height:auto;
+}
 .hero .ph-bg::after,.statement .ph-bg::after,.closing .ph-bg::after{
   align-items:flex-end;justify-content:flex-end;padding:26px 30px;
 }
@@ -231,7 +239,12 @@ a{color:inherit}
   background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.28) 45%,rgba(0,0,0,.78) 100%);
   pointer-events:none;
 }
-.hero-inner{max-width:var(--maxw);margin:0 auto;width:100%}
+.hero-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  width:100%;
+  padding-top:clamp(60px,11vh,140px);   /* título e texto mais baixos na dobra */
+}
 .hero-title{
   font-size:clamp(38px,7.4vw,104px);
   line-height:1.03;

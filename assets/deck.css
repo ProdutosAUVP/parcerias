@@ -73,6 +73,9 @@ body{
 .slide.dark{background:#050505;color:#fff}
 
 /* véu para garantir leitura sobre a foto */
+.scrim-panel{
+  background:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.6) 38%,rgba(0,0,0,.3) 100%);
+}
 .scrim{
   position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.18) 42%,rgba(0,0,0,.62) 100%);
@@ -111,6 +114,11 @@ body{
 
 /* --------------------- placeholders no palco (posição absoluta) */
 .slide .ph{position:absolute;z-index:0}
+/* as fotos entram em preto e branco, como no material original */
+.slide .ph.has-image{filter:grayscale(1) contrast(1.04)}
+/* enquadramentos: topo para não cortar rostos, baixo para os olhos da faixa */
+.slide .ph-top{background-position:center top}
+.slide .ph-low{background-position:center 74%}
 .slide .ph-full{inset:0;width:100%;height:100%}
 /* em fundos de tela cheia a etiqueta sobe, para não cobrir o texto */
 .slide .ph-full::after{align-items:flex-start;padding-top:38px}

@@ -179,6 +179,47 @@
   window.addEventListener('resize', function () { measure(); onScroll(); });
   measure(); onScroll();
 
+  /* ------------------- navegação por seções, como um slide -------------- */
+  var slides = $$('main > section');
+
+  function slideTop(el) {
+    var top = el.offsetTop;
+    return el === slides[0] ? 0 : Math.max(0, top - topbar.offsetHeight + 1);
+  }
+
+  function currentSlide() {
+    var y = window.scrollY + topbar.offsetHeight + 4;
+    var idx = 0;
+    slides.forEach(function (s, i) { if (s.offsetTop <= y) idx = i; });
+    return idx;
+  }
+
+  function goSlide(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    window.scrollTo({ top: slideTop(slides[i]), behavior: reduced ? 'auto' : 'smooth' });
+  }
+
+  function isTyping(t) {
+    return t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;   // as abas usam as setas
+    if (isTyping(e.target)) return;
+    if (nav.classList.contains('is-open')) return;              // menu aberto no celular
+
+    var step = 0;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': step = 1; break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': step = -1; break;
+      case 'Home': e.preventDefault(); goSlide(0); return;
+      case 'End': e.preventDefault(); goSlide(slides.length - 1); return;
+      default: return;
+    }
+    e.preventDefault();
+    goSlide(currentSlide() + step);
+  });
+
   /* menu no celular */
   var nav = $('#nav');
   var btnMenu = $('#btnMenu');

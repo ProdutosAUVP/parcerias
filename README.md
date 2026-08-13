@@ -18,7 +18,7 @@ que no PDF aparecem entre colchetes viraram **campos editáveis**.
 | Arquivo | O que é |
 | --- | --- |
 | `index.html` | O site — rolagem por seções, componentes interativos, preenchimento da proposta |
-| `apresentacao.html` | A apresentação — os 13 slides do PDF, replicados na grade original de 1440 × 810, para projetar em reunião |
+| `apresentacao.html` | A apresentação — os 13 slides do PDF, replicados na grade original de 1440 × 810, com as mesmas fotos do site, pronta para projetar |
 
 As duas compartilham o mesmo estado: o que você preenche em uma aparece na outra.
 
@@ -39,6 +39,11 @@ está no próprio repositório, então a página funciona offline.
 **Navegação** — topo fixo com as seções, indicador da seção atual, barra de progresso da
 leitura, menu no celular e rolagem suave. Cada seção tem endereço próprio (`#piloto`,
 `#proposta`, …), útil para mandar alguém direto ao ponto.
+
+**Setas do teclado** — a página anda dobra a dobra como um slide: `→` `↓` `PageDown` avançam,
+`←` `↑` `PageUp` voltam, `Home` e `End` vão ao começo e ao fim. As setas continuam trocando a
+vertical quando o foco está no seletor do ecossistema, e não navegam enquanto se digita num
+campo.
 
 **Ecossistema** — as cinco verticais (Escola, Capital, Analítica, Corporate, Agro) num
 seletor navegável por clique ou pelas setas do teclado, cada uma com a sua foto.
@@ -122,6 +127,9 @@ Já definidas:
 | Projeto-piloto | `assets/img/web/olhos-summit.webp` |
 | O próximo passo é desenhar as condições | `assets/img/web/palestras.webp` |
 
+Na capa a foto começa logo abaixo do topo fixo: ela preenche a altura toda e as pessoas, que
+ficam no alto do quadro, passavam por baixo do cabeçalho.
+
 Responsabilidades e Próximos passos não têm foto. A dobra final e o rodapé compartilham o
 mesmo preto, para a foto emendar no rodapé sem degrau; no celular a foto aparece inteira em
 vez de recortada, já que ela é larga demais para uma tela estreita.
@@ -143,7 +151,11 @@ Identificadores no site: `s1-bg`, `s2-foto`, `s3-bg`, `s7-foto`, `s8-bg`, `s10-f
 `s11-foto`, `s12-bg`, `s13-foto` e `eco-escola`, `eco-capital`, `eco-analitica`,
 `eco-corporate`, `eco-agro`.
 
-## Atalhos da apresentação
+## A apresentação
+
+Os 13 slides usam as mesmas fotos do site, nas posições do PDF original e também em preto e
+branco. Onde o PDF tinha foto e o projeto não tem imagem correspondente — o slide de Próximos
+passos —, a área foi retirada e o conteúdo ocupa a largura toda, em vez de deixar um vão.
 
 A apresentação mantém o painel de preenchimento (tecla `E`), útil para exportar e importar
 dados e para enviar imagens.
@@ -169,7 +181,8 @@ assets/deck.js      navegação dos slides
 assets/shared.css   campos editáveis, placeholders de imagem e avisos
 assets/state.js     estado compartilhado e persistência local
 assets/fonts.css    Anek Bangla (OFL 1.1), servida localmente
-assets/img/         imagens definitivas (via data-src)
+assets/img/         imagens originais; assets/img/web/ traz as versões servidas
+assets/olho-amarelo.svg  favicon (olho amarelo, vindo do repositório central)
 ```
 
 ### Duas observações sobre a adaptação
