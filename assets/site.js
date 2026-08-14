@@ -10,7 +10,7 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var FIELD_KEYS = ['empresa', 'diferencial', 'produto', 'membros'];
+  var FIELD_KEYS = ['empresa', 'diferencial', 'produto'];
 
   /* pré-preenchimento por link: ?empresa=Marca&produto=Linha */
   (function fromUrl() {

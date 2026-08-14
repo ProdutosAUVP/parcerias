@@ -5,13 +5,16 @@ proposta é lida e preenchida com os dados da marca parceira — além de uma ve
 de apresentação, para reuniões.
 
 Todo o texto vem do PDF original, com a mesma escrita e a mesma pontuação — incluindo detalhes
-como “autonomia..”, “Membros atendido pela AUVP Capital” e o duplo espaço em “Acesso facilitado
-à  [Nome da empresa]”. O que mudou foi o formato: em vez de 13 slides replicados, o conteúdo
-virou um site com seções, navegação e componentes animados.
+como “autonomia..” e o duplo espaço em “Acesso facilitado à  [Nome da empresa]”. O que mudou
+foi o formato: em vez de 13 slides replicados, o conteúdo virou um site com seções, navegação e
+componentes animados.
 
-Só dois trechos foram editados depois, a pedido: em Responsabilidades o lado da casa passou a
-ser “AUVP”, sem “Capital”, e em Próximos passos a frase virou “A união entre a AUVP e a [Nome
-da empresa]”, sem “Escola”. As duas mudanças valem para o site e para a apresentação.
+Três pontos foram editados depois, a pedido, e valem para o site e para a apresentação:
+
+- Em Responsabilidades, o lado da casa passou a ser “AUVP”, sem “Capital”.
+- Em Próximos passos, a frase virou “A união entre a AUVP e a [Nome da empresa]”, sem “Escola”.
+- Em Nossa presença em números saiu o indicador do meio — o campo `+x mil` e a legenda
+  “Membros atendido pela AUVP Capital” —, restando “+19 mil” e “Top 1”.
 
 As fotos entram como **placeholders** identificados, para serem trocadas depois, e os campos
 que no PDF aparecem entre colchetes viraram **campos editáveis**.
@@ -87,7 +90,6 @@ pesquisável.
 | Nome da empresa / marca | Por que essa parceria, Nossa proposta (2×), Projeto-piloto, Próximos passos |
 | Diferencial concreto | Por que essa parceria |
 | Produto ou linha | Por que essa parceria |
-| Membros AUVP Capital (`+x mil`) | Nossa presença em números |
 
 Não há botão nem painel de edição: o próprio texto entre colchetes mostra onde editar.
 Clique nele — um clique só — e o placeholder inteiro já vem selecionado, então é só digitar
